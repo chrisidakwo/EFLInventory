@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="42279baeb76743c091616c1efca44b21" Name="Diagram1" ZoomLevel="75" >
+        <EntityTypeShape EntityType="EFLInventory.Product" Width="1.5" PointX="3.125" PointY="0.5" />
+        <EntityTypeShape EntityType="EFLInventory.Category" Width="1.5" PointX="3.125" PointY="6" />
+        <EntityTypeShape EntityType="EFLInventory.SubCategory" Width="1.5" PointX="0.5" PointY="5" />
+        <EntityTypeShape EntityType="EFLInventory.Transaction_Type" Width="1.5" PointX="5" PointY="1.625" />
+        <EntityTypeShape EntityType="EFLInventory.Selling_History" Width="1.5" PointX="7.875" PointY="0.625" />
+        <EntityTypeShape EntityType="EFLInventory.Dealer" Width="1.5" PointX="7.125" PointY="5.625" />
+        <AssociationConnector Association="EFLInventory.FK_DealerSelling_History" />
+        <AssociationConnector Association="EFLInventory.FK_ProductCategory" />
+        <AssociationConnector Association="EFLInventory.FK_ProductSubCategory" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="EFLInventory.FK_CategorySubCategory" />
+        <AssociationConnector Association="EFLInventory.FK_ProductDealer" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="EFLInventory.FK_TransactionType_SellingHistory" />
+        <EntityTypeShape EntityType="EFLInventory.User" Width="1.5" PointX="10.875" PointY="0.875" />
+        <EntityTypeShape EntityType="EFLInventory.ActionHistory" Width="1.5" PointX="10.375" PointY="4.25" />
+        <EntityTypeShape EntityType="EFLInventory.ErrorLog" Width="1.5" PointX="10" PointY="6.625" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

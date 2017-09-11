@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EFLInventoryStoreContainer" CdmEntityContainer="EFLInventoryContainer">
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.Product)">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="image_url" ColumnName="image_url" />
+          <ScalarProperty Name="brand" ColumnName="brand" />
+          <ScalarProperty Name="dealer_id" ColumnName="dealer_id" />
+          <ScalarProperty Name="Category_id" ColumnName="Category_id" />
+          <ScalarProperty Name="subCategory_id" ColumnName="subCategory_id" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="cost_price" ColumnName="cost_price" />
+          <ScalarProperty Name="sell_price" ColumnName="sell_price" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="stock_threshold" ColumnName="stock_threshold" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="date_created" ColumnName="date_created" />
+          <ScalarProperty Name="last_updated" ColumnName="last_updated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.Category)">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubCategories">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.SubCategory)">
+        <MappingFragment StoreEntitySet="SubCategories">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="Category_id" ColumnName="Category_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_Types">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.Transaction_Type)">
+        <MappingFragment StoreEntitySet="Transaction_Types">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Selling_Histories">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.Selling_History)">
+        <MappingFragment StoreEntitySet="Selling_Histories">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="dealer_id" ColumnName="dealer_id" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="credit" ColumnName="credit" />
+          <ScalarProperty Name="debit" ColumnName="debit" />
+          <ScalarProperty Name="transaction_type_id" ColumnName="transaction_type_id" />
+          <ScalarProperty Name="customer_info" ColumnName="customer_info" />
+          <ScalarProperty Name="payment_type" ColumnName="payment_type" />
+          <ScalarProperty Name="payment_date" ColumnName="payment_date" />
+          <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dealers">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.Dealer)">
+        <MappingFragment StoreEntitySet="Dealers">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="date_created" ColumnName="date_created" />
+          <ScalarProperty Name="last_updated" ColumnName="last_updated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="date_created" ColumnName="date_created" />
+          <ScalarProperty Name="last_updated" ColumnName="last_updated" />
+          <ScalarProperty Name="is_superuser" ColumnName="is_superuser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ActionHistories">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.ActionHistory)">
+        <MappingFragment StoreEntitySet="ActionHistories">
+          <ScalarProperty Name="ActionHistoryID" ColumnName="ActionHistoryID" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ErrorLogs">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.ErrorLog)">
+        <MappingFragment StoreEntitySet="ErrorLogs">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="error_time" ColumnName="error_time" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="error_number" ColumnName="error_number" />
+          <ScalarProperty Name="error_severity" ColumnName="error_severity" />
+          <ScalarProperty Name="error_state" ColumnName="error_state" />
+          <ScalarProperty Name="error_proceedure" ColumnName="error_proceedure" />
+          <ScalarProperty Name="error_line" ColumnName="error_line" />
+          <ScalarProperty Name="error_message" ColumnName="error_message" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EFLInventory.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="EFLInventoryStoreContainer">
+    <EntitySet Name="Products" EntityType="EFLInventory.Store.Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Categories" EntityType="EFLInventory.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SubCategories" EntityType="EFLInventory.Store.SubCategories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Transaction_Types" EntityType="EFLInventory.Store.Transaction_Types" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Selling_Histories" EntityType="EFLInventory.Store.Selling_Histories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Dealers" EntityType="EFLInventory.Store.Dealers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="EFLInventory.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ActionHistories" EntityType="EFLInventory.Store.ActionHistories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ErrorLogs" EntityType="EFLInventory.Store.ErrorLogs" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="DealerSelling_History" Association="EFLInventory.Store.FK_DealerSelling_History">
+      <End Role="Dealer" EntitySet="Dealers" />
+      <End Role="Selling_History" EntitySet="Selling_Histories" />
+    </AssociationSet>
+    <AssociationSet Name="ProductCategory" Association="EFLInventory.Store.FK_ProductCategory">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Category" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="ProductSubCategory" Association="EFLInventory.Store.FK_ProductSubCategory">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="SubCategory" EntitySet="SubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="CategorySubCategory" Association="EFLInventory.Store.FK_CategorySubCategory">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="SubCategory" EntitySet="SubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="ProductDealer" Association="EFLInventory.Store.FK_ProductDealer">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Dealer" EntitySet="Dealers" />
+    </AssociationSet>
+    <AssociationSet Name="Transaction_TypeSelling_History" Association="EFLInventory.Store.FK_TransactionType_SellingHistory">
+      <End Role="Transaction_Type" EntitySet="Transaction_Types" />
+      <End Role="Selling_History" EntitySet="Selling_Histories" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="image_url" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="brand" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="dealer_id" Type="int" Nullable="false" />
+    <Property Name="Category_id" Type="int" Nullable="false" />
+    <Property Name="subCategory_id" Type="int" Nullable="false" />
+    <Property Name="weight" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="cost_price" Type="decimal" Nullable="false" />
+    <Property Name="sell_price" Type="decimal" Nullable="false" />
+    <Property Name="status" Type="bit" Nullable="false" />
+    <Property Name="stock_threshold" Type="int" Nullable="false" DefaultValue="5" />
+    <Property Name="Stock" Type="int" Nullable="true" />
+    <Property Name="date_created" Type="datetime" Nullable="false" />
+    <Property Name="last_updated" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubCategories">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Category_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Transaction_Types">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Selling_Histories">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dealer_id" Type="int" Nullable="true" />
+    <Property Name="product_id" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="credit" Type="decimal" Nullable="true" />
+    <Property Name="debit" Type="decimal" Nullable="true" />
+    <Property Name="transaction_type_id" Type="int" Nullable="false" />
+    <Property Name="customer_info" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="payment_type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="payment_date" Type="datetime" Nullable="false" />
+    <Property Name="customer_name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="remarks" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Dealers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="phone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="address" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="date_created" Type="datetime" Nullable="false" />
+    <Property Name="last_updated" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="full_name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="date_created" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="last_updated" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="is_superuser" Type="bit" Nullable="false" DefaultValue="false" />
+  </EntityType>
+  <EntityType Name="ActionHistories">
+    <Key>
+      <PropertyRef Name="ActionHistoryID" />
+    </Key>
+    <Property Name="ActionHistoryID" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="timestamp" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="userid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ErrorLogs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="error_time" Type="datetime" Nullable="false" />
+    <Property Name="username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="error_number" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="error_severity" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="error_state" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="error_proceedure" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="error_line" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="error_message" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_DealerSelling_History">
+    <End Role="Dealer" Type="EFLInventory.Store.Dealers" Multiplicity="0..1" />
+    <End Role="Selling_History" Type="EFLInventory.Store.Selling_Histories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dealer">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Selling_History">
+        <PropertyRef Name="dealer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductCategory">
+    <End Role="Product" Type="EFLInventory.Store.Products" Multiplicity="*" />
+    <End Role="Category" Type="EFLInventory.Store.Categories" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="Category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSubCategory">
+    <End Role="Product" Type="EFLInventory.Store.Products" Multiplicity="*" />
+    <End Role="SubCategory" Type="EFLInventory.Store.SubCategories" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="subCategory_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CategorySubCategory">
+    <End Role="Category" Type="EFLInventory.Store.Categories" Multiplicity="1" />
+    <End Role="SubCategory" Type="EFLInventory.Store.SubCategories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SubCategory">
+        <PropertyRef Name="Category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductDealer">
+    <End Role="Product" Type="EFLInventory.Store.Products" Multiplicity="*" />
+    <End Role="Dealer" Type="EFLInventory.Store.Dealers" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Dealer">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="dealer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransactionType_SellingHistory">
+    <End Role="Transaction_Type" Type="EFLInventory.Store.Transaction_Types" Multiplicity="1" />
+    <End Role="Selling_History" Type="EFLInventory.Store.Selling_Histories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction_Type">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Selling_History">
+        <PropertyRef Name="transaction_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

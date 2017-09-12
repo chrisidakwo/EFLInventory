@@ -1,5 +1,0 @@
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\EntityLayer\EntityLayer\bin\Debug\EntityLayer.dll
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\EntityLayer\EntityLayer\bin\Debug\EntityLayer.pdb
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\EntityLayer\EntityLayer\obj\Debug\EntityLayer.dll
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\EntityLayer\EntityLayer\obj\Debug\EntityLayer.pdb
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\EntityLayer\EntityLayer\obj\Debug\EntityLayer.csprojResolveAssemblyReference.cache

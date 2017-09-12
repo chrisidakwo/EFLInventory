@@ -1,9 +1,0 @@
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\BusinessLayer\BusinessLayer\bin\Debug\BusinessLayer.dll
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\BusinessLayer\BusinessLayer\bin\Debug\BusinessLayer.pdb
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\BusinessLayer\BusinessLayer\bin\Debug\DataLayer.dll
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\BusinessLayer\BusinessLayer\bin\Debug\EntityLayer.dll
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\BusinessLayer\BusinessLayer\bin\Debug\DataLayer.pdb
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\BusinessLayer\BusinessLayer\bin\Debug\EntityLayer.pdb
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\BusinessLayer\BusinessLayer\obj\Debug\BusinessLayer.csprojResolveAssemblyReference.cache
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\BusinessLayer\BusinessLayer\obj\Debug\BusinessLayer.dll
-C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\BusinessLayer\BusinessLayer\obj\Debug\BusinessLayer.pdb

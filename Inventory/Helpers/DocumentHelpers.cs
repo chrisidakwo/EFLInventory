@@ -10,7 +10,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Inventory.Helpers {
     public class DocumentHelpers {
-        public static bool ExportToCsv<T>(KryptonDataGridView grdView) {
+        public static bool ExportToCSV(KryptonDataGridView grdView) {
             bool flag = false;
             try {
                 var csv = CsvExporter.CreateCsvFromDataGridView(grdView);
@@ -20,11 +20,17 @@ namespace Inventory.Helpers {
                 // Compose a string that consists of three lines.
 
                 // Write the string to a file.
-                var file = new System.IO.StreamWriter(save.FileName);
+                var file = new StreamWriter(save.FileName);
                 file.WriteLine(csv);
+
+                ControlHelpers.SuccessNotification("Success", string.Format("'{0}' has been saved successfully!", save.FileName));
 
                 file.Close();
                 flag = true;
+
+                if (File.Exists(save.FileName)) {
+                    System.Diagnostics.Process.Start(save.FileName);
+                }
             } catch (Exception e) {
                 throw (e);
             }
@@ -32,7 +38,7 @@ namespace Inventory.Helpers {
             return flag;
         }
 
-        public static bool ExportToCsv<T>(List<T> data) {
+        public static bool ExportToCSV<T>(List<T> data) {
             bool flag = false;
             try {
                 var csv = CsvExporter.CreateCsvTextFile(data);
@@ -47,7 +53,7 @@ namespace Inventory.Helpers {
 
                 file.Close();
                 flag = true;
-                ControlHelpers.SuccessNotification("Success", "'Inventory Summary.xlsx' has been saved successfully!");
+                ControlHelpers.SuccessNotification("Success", string.Format("'{0}' has been saved successfully!", save.FileName));
                 if (File.Exists(save.FileName)) {
                     System.Diagnostics.Process.Start(save.FileName);
                 }

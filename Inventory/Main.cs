@@ -3,6 +3,7 @@ using ComponentFactory.Krypton.Toolkit;
 using EntityLayer;
 using Inventory.Helpers;
 using Inventory.Model;
+using Inventory.Utils;
 using Inventory.View;
 using Inventory.View.About;
 using Inventory.View.Categories;
@@ -200,7 +201,12 @@ namespace Inventory {
 
         private void generateReportCSVToolStripMenuItem_Click(object sender, EventArgs e) {
             var gridview = grdViewInventorySummary;
-            DocumentHelpers.ExportToCsv<InventorySummaryEntity>(gridview);
+            try {
+                DocumentHelpers.ExportToCSV(gridview);
+            } catch (Exception ex) {
+                ErrorLogger.LogException(ex, LoginCredentials.username, "Generating report for inventory summary.");
+            }
+            ControlHelpers.SuccessNotification("Success", "Report has been saved successfully!");
         }
 
         private void downloadTransactionsReportToolStripMenuItem_Click(object sender, EventArgs e) {

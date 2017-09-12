@@ -65,28 +65,28 @@ namespace Inventory.View.Transactions {
             switch (SelectedButton) {
                 case "Selling_CSV":
                     try {
-                        DocumentHelpers.ExportToCsv(SellingEntities);
+                        DocumentHelpers.ExportToCSV(SellingEntities);
                     } catch (Exception ex) {
                         ErrorLogger.LogException(ex, LoginCredentials.username, "");
                     }
                     break;
                 case "Selling_Excel":
                     try {
-                        DocumentHelpers.ExportToCsv(SellingEntities);
+                        DocumentHelpers.ExportToCSV(SellingEntities);
                     } catch (Exception ex) {
                         ErrorLogger.LogException(ex, LoginCredentials.username, "");
                     }
                     break;
                 case "Purchase_CSV":
                     try {
-                        DocumentHelpers.ExportToCsv(PurchaseEntities);
+                        DocumentHelpers.ExportToCSV(PurchaseEntities);
                     } catch (Exception ex) {
                         ErrorLogger.LogException(ex, LoginCredentials.username, "");
                     }
                     break;
                 case "Purchase_Excel":
                     try {
-                        DocumentHelpers.ExportToCsv(PurchaseEntities);
+                        DocumentHelpers.ExportToCSV(PurchaseEntities);
                     } catch (Exception ex) {
                         ErrorLogger.LogException(ex, LoginCredentials.username, "");
                     }

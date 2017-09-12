@@ -24,6 +24,7 @@ namespace Inventory.Utils {
 
             return result.ToString();
         }
+
         public static string CreateCsvFromDataGridView(KryptonDataGridView dvLogs) {
             var sb = new StringBuilder();
 

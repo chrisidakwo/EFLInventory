@@ -20,6 +20,9 @@ namespace Inventory.View.Dealers {
             // Populate DataGridView
             this.PopulateGridView(null);
 
+            // Populate Brands
+            PopulateDDLBrand();
+
             // Populate sort order ComboBox
             ddlSortOrder.DataSource = Enum.GetValues(typeof(InventoryHelper.SortOrder));
 
@@ -44,6 +47,11 @@ namespace Inventory.View.Dealers {
             DataHelpers.LoadGridViewData(grdViewAllDealers, _dealers);
         }
 
+        public void PopulateDDLBrand() {
+            var _brands = BrandServices.GetAllBrands();
+            DataHelpers.LoadDataSource(ddlSelectBrand, _brands, "name", "id");
+        }
+
         private void btnAddDealer_Click(object sender, EventArgs e) {
             var _dealerName = txtDealerName.Text.Trim();
             DealerName = _dealerName;
@@ -65,10 +73,12 @@ namespace Inventory.View.Dealers {
             var phone = txtDealerPhone.Text.Trim();
             var email = txtDealerEmail.Text.Trim();
             var address = txtDealerAddress.Text.Trim();
+            var brandId = ddlSelectBrand.SelectedValue.ToString();
             Dealer _dealer = new Dealer() {
                 name = DealerName,
                 email = email,
                 phone = phone,
+                Brand_id = Convert.ToInt32(brandId),
                 address = address
             };
             #endregion Instantiate variables and a new Dealer instance
@@ -113,11 +123,13 @@ namespace Inventory.View.Dealers {
             var phone = txtDealerPhone.Text.Trim();
             var email = txtDealerEmail.Text.Trim();
             var address = txtDealerAddress.Text.Trim();
+            var brandID = ddlSelectBrand.SelectedValue.ToString();
             Dealer _dealer = new Dealer() {
                 id = RowID,
                 name = DealerName,
                 email = email,
                 phone = phone,
+                Brand_id = Convert.ToInt32(brandID),
                 address = address
             };
             #endregion Instantiate variables and a new Dealer instance
@@ -190,6 +202,7 @@ namespace Inventory.View.Dealers {
             txtDealerEmail.Text = dealer.email;
             txtDealerPhone.Text = dealer.phone;
             txtDealerAddress.Text = dealer.address;
+            ddlSelectBrand.SelectedValue = dealer.brand_id;
         }
 
         public void ResetValues() {
@@ -199,6 +212,12 @@ namespace Inventory.View.Dealers {
             txtDealerPhone.Text = "";
             txtDealerEmail.Text = "";
             txtDealerAddress.Text = "";
+        }
+
+        private void btnAddNewBrand_Click(object sender, EventArgs e) {
+            AddUpdateBrand brand = new AddUpdateBrand();
+            brand.ShowDialog(this);
+            PopulateDDLBrand();
         }
     }
 

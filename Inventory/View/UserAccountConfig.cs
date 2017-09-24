@@ -20,10 +20,10 @@ namespace Inventory.View {
         public UserAccountConfig() {
             InitializeComponent();
 
-            var currentUser = Users.Where(u => u.username == LoginCredentials.username).Where(u => u.is_superuser == true).FirstOrDefault();
-            if (currentUser == null) {
-                Close();
-            }
+            //var currentUser = Users.Where(u => u.username == LoginCredentials.username).Where(u => u.is_superuser == true).FirstOrDefault();
+            //if (currentUser == null) {
+            //    Close();
+            //}
 
             worker.DoWork += new DoWorkEventHandler(worker_DoWork);
             worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
@@ -52,10 +52,8 @@ namespace Inventory.View {
                 return;
             }
 
-            var currentUser = Users.Where(u => u.username == LoginCredentials.username).Where(u => u.is_superuser == true).FirstOrDefault();
-            if (currentUser == null) {
-                ErrorLogger.LogException(new Exception("User tried creating a new user account"), LoginCredentials.username, "Create a new user");
-                ControlHelpers.ErrorNotification("Action Restricted", "You do not have the priviledge to create a user!");
+            var flag = CheckPriviledge();
+            if (flag == false) {
                 return;
             }
 
@@ -68,9 +66,11 @@ namespace Inventory.View {
             User user = new User() {
                 username = txtUsername.Text.Trim(),
                 full_name = txtFullName.Text.Trim(),
-                is_superuser = chkIsSuperUser.Checked,
+                is_staff = chkIsAdmin.Checked,
                 password = HashedPassword(txtPassword.Text.Trim()),
             };
+
+            user.is_superuser = user.is_staff;
 
             try {
                 var id = UserServices.AddUpdateUser(user);
@@ -92,10 +92,8 @@ namespace Inventory.View {
                 return;
             }
 
-            var currentUser = Users.Where(u => u.username == LoginCredentials.username).Where(u => u.is_superuser == true).FirstOrDefault();
-            if (currentUser == null) {
-                ErrorLogger.LogException(new Exception("User tried creating a new user account"), LoginCredentials.username, "Create a new user");
-                ControlHelpers.ErrorNotification("Action Restricted", "You do not have the priviledge to create a user!");
+            var flag = CheckPriviledge();
+            if (flag == false) {
                 return;
             }
 
@@ -103,8 +101,10 @@ namespace Inventory.View {
                 id = UserId,
                 username = txtUsername.Text.Trim(),
                 full_name = txtFullName.Text.Trim(),
-                is_superuser = chkIsSuperUser.Checked,
+                is_staff = chkIsAdmin.Checked,
             };
+
+            user.is_superuser = user.is_staff;
 
             if (txtPassword.Text != "" & txtPasswordConfirm.Text != "") {
                 // CHheck password match
@@ -130,6 +130,12 @@ namespace Inventory.View {
 
         private void btnDeleteUser_Click(object sender, EventArgs e) {
             var flag = false;
+
+            var check = CheckPriviledge();
+            if (check == false) {
+                return;
+            }
+
             if (UserId == 0) {
                 ControlHelpers.ErrorNotification("Input Error", "Please select an existing user!");
                 return;
@@ -168,7 +174,7 @@ namespace Inventory.View {
                     UserId = selectedUser.id;
                     txtUsername.Text = selectedUser.username;
                     txtFullName.Text = selectedUser.full_name;
-                    chkIsSuperUser.Checked = selectedUser.is_superuser;
+                    chkIsAdmin.Checked = selectedUser.is_superuser;
                 }
             } catch (Exception) {
             }
@@ -178,18 +184,18 @@ namespace Inventory.View {
             bool flag = false;
             if (txtUsername.Text.Trim() == "") {
                 ControlHelpers.ErrorNotification("Input Error", "User must have a username!");
-                flag = true;
+                return true;
             }
 
             if (txtPassword.Text.Trim() == "") {
                 ControlHelpers.ErrorNotification("Input Error", "User must have a password!");
-                flag = true;
+                return true;
             }
 
             // CHheck password match
             if (txtPassword.Text.Trim() != txtPasswordConfirm.Text.Trim()) {
                 ControlHelpers.ErrorNotification("Input Error", "Your password inputs do not match!");
-                flag = true;
+                return true;
             }
 
             return flag;
@@ -204,7 +210,21 @@ namespace Inventory.View {
             txtUsername.Text = "";
             txtPassword.Text = "";
             txtPasswordConfirm.Text = "";
-            chkIsSuperUser.Checked = false;
+            chkIsAdmin.Checked = false;
+        }
+
+        public bool CheckPriviledge() {
+            bool flag = true;
+            var currentUser = Users.Where(u => u.username == LoginCredentials.username).Where(u => u.is_superuser && u.is_staff).FirstOrDefault();
+
+            if (currentUser == null) {
+                flag = false;
+                ErrorLogger.LogException(new Exception(string.Format("{0} tried updating a user account", LoginCredentials.username)), LoginCredentials.username, "Create a new user");
+                ErrorServices.AddNewError(LoginCredentials.username, "", "", string.Format("{0} tried updating a user account", LoginCredentials.username), "", "");
+                ControlHelpers.ErrorNotification("Action Restricted", "You do not have the priviledge to update a user account!");
+            }
+
+            return flag;
         }
     }
 }

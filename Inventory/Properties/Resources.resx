@@ -118,32 +118,53 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ToastNotification" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ToastNotification.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BG8A" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BG8A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="sceneryA" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sceneryA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Author" xml:space="preserve">
+    <value>Ekojoka Christolight Idakwo</value>
   </data>
-  <data name="BG15B" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BG15B.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sceneryC" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sceneryC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BG22A" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Files\BG22A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LockScreen5A" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LockScreen5A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Lock_Screen_5A" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Lock Screen 5A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BG21A" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Files\BG21A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BG8A" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BG8A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BG12A" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Files\BG12A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sceneryC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sceneryC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BG23A" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Files\BG23A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BG15A" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BG15A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Settings-5-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings-5-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Updated Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Updated Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="sceneryB" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sceneryB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="user-info-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\user-info-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="inventory-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inventory-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Windows-Close-Program-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Windows-Close-Program-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Files\NA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -151,28 +172,34 @@
   <data name="ToastNotification1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\ToastNotification.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Author" xml:space="preserve">
-    <value>Ekojoka Christolight Idakwo</value>
-  </data>
-  <data name="BG12A" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Files\BG12A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Lock_Screen_5A" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lock Screen 5A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BG14A" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Files\BG14A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BG21A" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Files\BG21A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AddProduct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddProduct.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BG22A" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Files\BG22A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="StockEntry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StockEntry.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BG23A" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Files\BG23A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="sceneryA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sceneryA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToastNotification" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ToastNotification.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BG26A" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Files\BG26A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BG25A" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Files\BG25A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BG26A" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Files\BG26A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BG15B" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BG15B.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Inventory_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Files\Inventory_Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

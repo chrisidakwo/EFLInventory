@@ -6,7 +6,6 @@ using Inventory.Utils;
 using Inventory.View.Helpers;
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Inventory.View {
@@ -17,16 +16,12 @@ namespace Inventory.View {
         private string EmptyStockProductList = "";
         public Login() {
             InitializeComponent();
-            int users = 0;
-            try {
-                users = UserServices.GetAllUsers().Where(u => u.is_superuser = true).Count();
-            } catch (Exception ex) {
-                ErrorLogger.LogException(ex, "Not Authenticated", "Loading login page. Trying to retrieve a list of users from db.");
-            }
-
-            if (users >= 2) {
-                lblUserAcctConfig.Visible = false;
-            }
+            //int users = 0;
+            //try {
+            //    users = UserServices.GetAllUsers().Where(u => u.is_superuser = true).Count();
+            //} catch (Exception ex) {
+            //    ErrorLogger.LogException(ex, "Not Authenticated", "Loading login page. Trying to retrieve a list of users from db.");
+            //}
         }
 
         /// <summary>
@@ -51,12 +46,11 @@ namespace Inventory.View {
                     KryptonMessageBox.Show(message, "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             } catch (Exception ex) {
-                var name = "";
-                if (LoginCredentials.username == "")
-                    name = "Not Authenticated";
+                var name = "Not Authenticated";
+                if (LoginCredentials.username != "")
+                    name = LoginCredentials.username;
 
-                ErrorLogger.LogException(ex, name, "Trying to login");
-                ErrorServices.AddNewError(name, "Highly Severe", "0", "Trying to login", ex.TargetSite.ToString(), ex.InnerException.Message);
+                ErrorLogger.LogException(ex, name, "Trying to log in");
                 string message = "Issue with database connection settings!";
                 KryptonMessageBox.Show(message, "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -91,10 +85,10 @@ namespace Inventory.View {
                 OverAllBalance = TransactionsHelpers.GetOverAllBalance();
                 MonthlyBalance = TransactionsHelpers.GetMonthBalance(firstDayOfMonth, lastDayOfMonth);
                 EmptyStockProductList = TransactionsHelpers.GetProductsWithEmptyStock();
-                var t = TransactionsHelpers.GetTotalSaleForToday(_todaysDate);
-                var x = TransactionsHelpers.GetTotalSalesForMonth(firstDayOfMonth, lastDayOfMonth);
-                var y = TransactionsHelpers.GetTotalSalesForHalfYear(_todaysDate);
-                var z = TransactionsHelpers.GetValueOfEntireStock();
+                TransactionsHelpers.GetTotalSaleForToday(_todaysDate);
+                TransactionsHelpers.GetTotalSalesForMonth(firstDayOfMonth, lastDayOfMonth);
+                TransactionsHelpers.GetTotalSalesForHalfYear(_todaysDate);
+                TransactionsHelpers.GetValueOfEntireStock();
             } catch (Exception ex) {
                 ErrorLogger.LogException(ex, LoginCredentials.username, "Background operation to retrieve overall balance, monthly balance, products with empty stock, total sales for the day, total sales for the month, value of entire stock, and total sales for half year");
                 return;
@@ -103,12 +97,12 @@ namespace Inventory.View {
 
         private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
             if (e.Error == null) {
-                ControlHelpers.StartUpNotification("OverAll Balance", "Your overall balance is: " + OverAllBalance);
+                ControlHelpers.StartUpNotification("OverAll Balance", "Your overall balance is: " + OverAllBalance, 10);
 
-                ControlHelpers.StartUpNotification("Monthly Balance", "Your balance for this month is: " + MonthlyBalance);
+                ControlHelpers.StartUpNotification("Monthly Balance", "Your balance for this month is: " + MonthlyBalance, 10);
 
                 if (EmptyStockProductList.Length != 0) {
-                    ControlHelpers.ErrorNotification("Products Out of Stock", "The following products are out of stock: " + EmptyStockProductList);
+                    ControlHelpers.StartUpNotification("Products Out of Stock", "The following products are out of stock: " + EmptyStockProductList, 10);
                 }
             } else {
                 ControlHelpers.ErrorNotification("Background Task Error", "Application encountered an error while loading a background task!");

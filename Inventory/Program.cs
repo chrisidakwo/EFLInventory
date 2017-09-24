@@ -1,4 +1,5 @@
-﻿using Inventory.View;
+﻿using Inventory.Helpers;
+using Inventory.View;
 using System;
 using System.Windows.Forms;
 
@@ -11,6 +12,7 @@ namespace Inventory {
         private static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Main());
             DialogResult result;
             using (var loginForm = new Login())
                 result = loginForm.ShowDialog();

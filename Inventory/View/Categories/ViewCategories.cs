@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using ComponentFactory.Krypton.Toolkit;
 using DataLayer;
+using EntityLayer;
 using Inventory.Helpers;
 using Inventory.View.Helpers;
 using System;
@@ -15,8 +16,8 @@ namespace Inventory.View.Categories {
     public partial class ViewCategories : UserControl {
         public int RowID = 0;
         public string CategoryNAME = "";
-        public List<Category> Categories = new List<Category>();
-        public List<Category> SortedCategories = new List<Category>();
+        public List<CategoryEntity> Categories = new List<CategoryEntity>();
+        public List<CategoryEntity> SortedCategories = new List<CategoryEntity>();
         public ViewCategories() {
             InitializeComponent();
 
@@ -31,12 +32,12 @@ namespace Inventory.View.Categories {
             ddlSortCategoryName.DataSource = Enum.GetValues(typeof(InventoryHelper.SortOrder));
         }
 
-        public void PopulateGridView(List<Category> categories) {
-            var _categories = new List<Category>();
+        public void PopulateGridView(List<CategoryEntity> categories) {
+            var _categories = new List<CategoryEntity>();
             if (categories != null) {
                 _categories = categories;
             } else {
-                _categories = CategoryServices.GetAllCategories();
+                _categories = CategoryServices.GetAllCategoryEntity();
                 Categories = _categories;
                 SortedCategories = _categories;
             }
@@ -47,14 +48,22 @@ namespace Inventory.View.Categories {
         private void btnAddCategory_Click(object sender, EventArgs e) {
             // Ensure category name is not empty
             var category_name = txtCategoryName.Text.Trim();
-            if (category_name.Equals(String.Empty)) {
+            if (category_name.Equals(string.Empty)) {
                 ControlHelpers.ErrorNotification("Invalid Input", "Category name cannot be empty!");
                 return;
             }
 
             // Retrieve category by name (if it exists) or create a new one
             // If category exists, return
-            var _category = Categories.Where(c => c.name == category_name).FirstOrDefault();
+            Category _category = null;
+            if (Categories != null) {
+                var categoryEntity = Categories.Where(c => c.name == category_name).FirstOrDefault();
+
+                if (categoryEntity != null) {
+                    _category = CategoryServices.GetCategory(categoryEntity.id);
+                }
+            }
+
             if (_category == null) {
                 _category = new Category() {
                     name = category_name,
@@ -103,10 +112,17 @@ namespace Inventory.View.Categories {
                 return;
             }
 
-            if (txtCategoryName.Text == "") {
+            CategoryNAME = txtCategoryName.Text.Trim();
+            if (CategoryNAME == "") {
                 Notification n = new Notification("Invalid Input", "Category name cannot be empty!", 7, AnimationMethod.Slide, AnimationDirection.Up);
                 PlayNotificationSound(Sounds.Error);
                 n.Show();
+                return;
+            }
+
+            var categoryEntity = Categories.Where(c => c.name == CategoryNAME).FirstOrDefault();
+            if (categoryEntity != null) {
+                ControlHelpers.ErrorNotification("Duplicate Name", "A category with similar name already exists!");
                 return;
             }
 
@@ -124,14 +140,10 @@ namespace Inventory.View.Categories {
                     CategoryNAME = "";
                     txtCategoryName.Text = "";
                 } else {
-                    Notification n = new Notification("Update Error", "Category name was not updated!", 7, AnimationMethod.Slide, AnimationDirection.Up);
-                    PlayNotificationSound(Sounds.Error);
-                    n.Show();
+                    ControlHelpers.ErrorNotification("Update Error", "Category name was not updated!");
                 }
             } catch (Exception) {
-                Notification n = new Notification("An error occurred while updating category name.", "Database Error!", 7, AnimationMethod.Slide, AnimationDirection.Up);
-                PlayNotificationSound(Sounds.Error);
-                n.Show();
+                ControlHelpers.ErrorNotification("Database Error!", "An error occurred while updating category name.");
             }
         }
 
@@ -191,7 +203,7 @@ namespace Inventory.View.Categories {
         private void btnSearchCategoryName_Click(object sender, EventArgs e) {
             var searchText = txtSearchCategoryName.Text;
             var sortOrder = ddlSortCategoryName.SelectedItem.ToString();
-            var categories = new List<Category>();
+            var categories = new List<CategoryEntity>();
 
             if (searchText != "") {
                 if (sortOrder == "Ascending") {
@@ -207,7 +219,7 @@ namespace Inventory.View.Categories {
 
         private void ddlSortCategoryName_SelectedIndexChanged(object sender, EventArgs e) {
             var sortOrder = ddlSortCategoryName.SelectedItem.ToString();
-            var categories = new List<Category>();
+            var categories = new List<CategoryEntity>();
             switch (sortOrder) {
                 case "Ascending":
                     categories = SortedCategories.OrderBy(c => c.name).ToList();

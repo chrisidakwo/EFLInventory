@@ -1,261 +1,359 @@
 ﻿using BusinessLayer;
-using ComponentFactory.Krypton.Toolkit;
 using DataLayer;
 using EntityLayer;
 using Inventory.Helpers;
-using Inventory.ToastNotification;
+using Inventory.Model;
+using Inventory.Utils;
 using Inventory.View.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using ToastNotification;
 using static Inventory.Helpers.InventoryHelper;
 
 namespace Inventory.View.Products {
-    public partial class SellProducts : UserControl, INotifyPropertyChanged {
-        // Qauntity to be sold
-        public int ProdQuantity = 0;
-        // Product available stock
+    public partial class SellProducts : UserControl {
+        public bool Proceed = true;
+        public bool ReadyForSale = false;
         public int ProductStock = 0;
-        // Total cost of products to be sold
         public decimal TotalAmount = 0.00M;
+        public decimal ProdQuantity = 0.00M;
+        public decimal SalePrice = 0.00M;
+        public string GivenAmount = "";
+        public string CustomerChange = "";
+        public Guid VariationID = new Guid();
+        public ProductVariationEntity SelectedVariation = null;
+        public List<ProductSellingEntity> SelectedProducts = new List<ProductSellingEntity>();
 
-        public string CustomerName = "";
+        //
+        //
+        //
+        public string Remarks { get; set; }
 
-        public string CustomerInfo = "";
-
-        public string Remarks = "";
-
-        public string PaymentType = "";
+        public string PaymentType { get; set; }
 
         public BackgroundWorker worker = new BackgroundWorker();
 
-        // Products listed in DataGridView
-        public List<ProductSellingEntity> SelectedProducts = new List<ProductSellingEntity>();
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public virtual void OnPropertyChanged(string propertyName) {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public ProductSellingEntity Product { get; set; }
 
         public SellProducts() {
             InitializeComponent();
-
-            // Initialize ComboBoxes with retrieved data
-            this.LoadCategories();
-            this.LoadPaymentTypes();
+            //
+            //
+            PopulateGridViewAllProducts();
+            LoadPaymentTypes();
         }
 
-        /// <summary>
-        /// Retrieve and bind data to categories ComboBox
-        /// </summary>
-        public void LoadCategories() {
-            var _categories = CategoryServices.GetAllCategories();
-            DataHelpers.LoadDataSource(ddlCategories, _categories, "name", "id");
+        public void PopulateGridViewAllProducts() {
+            var _productVariations = ProductVariationServices.GetAllProductsWithVariations();
+            DataHelpers.LoadGridViewData(grdViewAllProducts, _productVariations);
         }
 
-        /// <summary>
-        /// Retrieve and bind data to payment type ComboBox
-        /// </summary>
         public void LoadPaymentTypes() {
-            ddlPaymentTypes.DataSource = Enum.GetValues(typeof(PaymentType));
+            ddlSalesPayType.DataSource = Enum.GetValues(typeof(PaymentType));
+        }
+
+        private void btnAdd1_Click(object sender, EventArgs e) {
+            if (ReadyForSale) {
+                GivenAmount += "1";
+                txtCustomerChange.Text = GivenAmount;
+            }
+        }
+
+        private void btnAdd2_Click(object sender, EventArgs e) {
+            if (ReadyForSale) {
+                GivenAmount += "2";
+                txtCustomerChange.Text = GivenAmount;
+            }
+        }
+
+        private void btnAdd3_Click(object sender, EventArgs e) {
+            if (ReadyForSale) {
+                GivenAmount += "3";
+                txtCustomerChange.Text = GivenAmount;
+            }
+        }
+
+        private void btnAdd4_Click(object sender, EventArgs e) {
+            if (ReadyForSale) {
+                GivenAmount += "4";
+                txtCustomerChange.Text = GivenAmount;
+            }
+        }
+
+        private void btnAdd5_Click(object sender, EventArgs e) {
+            if (ReadyForSale) {
+                GivenAmount += "5";
+                txtCustomerChange.Text = GivenAmount;
+            }
+        }
+
+        private void btnAdd6_Click(object sender, EventArgs e) {
+            if (ReadyForSale) {
+                GivenAmount += "6";
+                txtCustomerChange.Text = GivenAmount;
+            }
+        }
+
+        private void btnAdd7_Click(object sender, EventArgs e) {
+            if (ReadyForSale) {
+                GivenAmount += "7";
+                txtCustomerChange.Text = GivenAmount;
+            }
+        }
+
+        private void btnAdd8_Click(object sender, EventArgs e) {
+            if (ReadyForSale) {
+                GivenAmount += "8";
+                txtCustomerChange.Text = GivenAmount;
+            }
+        }
+
+        private void btnAdd9_Click(object sender, EventArgs e) {
+            if (ReadyForSale) {
+                GivenAmount += "9";
+                txtCustomerChange.Text = GivenAmount;
+            }
+        }
+
+        private void btnAdd0_Click(object sender, EventArgs e) {
+            if (ReadyForSale) {
+                GivenAmount += "0";
+                txtCustomerChange.Text = GivenAmount;
+            }
+        }
+
+        private void btnBackSpace_Click(object sender, EventArgs e) {
+            if (ReadyForSale & GivenAmount != "") {
+                GivenAmount = GivenAmount.Remove(GivenAmount.Length - 1);
+                txtCustomerChange.Text = GivenAmount;
+            }
         }
 
         /// <summary>
-        /// Update global ProdQuantity variable with the updated quantity value
+        /// Select a product, update quantity and/or selling price and add to list of items to be sold
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        //private void txtProdQuantity_TextChanged(object sender, EventArgs e) {
-        //    int quantity = 0;
-        //    if (txtProdQuantity.Text != "") {
-        //        quantity = Convert.ToInt32(txtProdQuantity.Text);
-        //        ProdQuantity = quantity;
-        //    } else {
-        //        KryptonMessageBox.Show("Quantity should not be empty!", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        return;
-        //    }
-        //}
-
-        private void ddlCategories_SelectedIndexChanged(object sender, EventArgs e) {
-            int categoryId = 0;
-
-            // Retrieve category id from the selected category
-            try {
-                var category = ddlCategories.SelectedValue;
-                categoryId = Convert.ToInt32(category);
-            } catch (Exception) {
-                return;
-            }
-
-            // Get all subcategories associated with the retrieved category id
-            var subcategories = SubCategoryServices.GetSubCategoriesByCategoryId(categoryId);
-            // Update subcategories ComboBox with the retrieved list of subcategories
-            DataHelpers.LoadDataSource(ddlSubCategories, subcategories, "name", "id");
-            ddlSubCategories_SelectedIndexChanged(sender, e);
-        }
-
-        private void ddlSubCategories_SelectedIndexChanged(object sender, EventArgs e) {
-            int subcategoryid = 0;
-
-            // Retrieve subcagtegory id from the selected subcategory
-            try {
-                var subcategory = ddlSubCategories.SelectedValue;
-                subcategoryid = Convert.ToInt32(subcategory);
-            } catch (Exception) {
-                return;
-            }
-
-            // Get all products associated with the retrieved subcategory id
-            var _products = ProductServices.GetProductBySubCategory(subcategoryid);
-            // Update product ComboBox with the retrieved list of products
-            DataHelpers.LoadDataSource(ddlProducts, _products, "name", "id");
-            ddlProducts_SelectedIndexChanged(this, new EventArgs());
-        }
-
-        private void ddlProducts_SelectedIndexChanged(object sender, EventArgs e) {
-            int productId = 0;
-            // Retrieve product id for the selected product
-            try {
-                var selectedProduct = ddlProducts.SelectedValue;
-                productId = Convert.ToInt32(selectedProduct);
-            } catch (Exception) {
-                return;
-            }
-
-            // Retrieve product with productId
-            var product = ProductServices.GetProduct(productId);
-
-            // Update selling price TextBox
-            ProductStock = Convert.ToInt32(product.Stock);
-            txtProdSellingPrice.Text = "";
-            txtProdSellingPrice.Text = product.sell_price.ToString();
-        }
-
-        /// <summary>
-        /// Add a product to list of products in DataGridView
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAddProductsToList_Click(object sender, EventArgs e) {
-            // Ensure a product has been selected
-            var selectedProduct = ddlProducts.SelectedValue;
-            if (selectedProduct == null) {
-                Notification n = new Notification("Invalid Input", "Please select a product!", -1, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
-                NotificationSound.PlayNotificationSound(NotificationSound.Sounds.Error);
-                n.Show();
-                return;
-            }
-
-            // Ensure quantity is above 0
-            int prodQty = 0;
-            var quantity = txtProdQuantity.Text;
-            try {
-                prodQty = Convert.ToInt32(quantity);
-                if (quantity.Equals("0")) {
-                    Notification n = new Notification("Invalid Input", "Quantity should not be equal to zero!", -1, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
-                    NotificationSound.PlayNotificationSound(NotificationSound.Sounds.Error);
-                    n.Show();
-                    //KryptonMessageBox.Show("Quantity should not be equal to zero!", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        private void btnAddProductToList_Click(object sender, EventArgs e) {
+            if (Proceed == true) {
+                // Ensure a variation had been selected
+                if (SelectedVariation == null) {
+                    ControlHelpers.ErrorNotification("Error", "Please select a product!", 3);
                     return;
                 }
 
-                // Set global variable - ProdQuantity, to the value of inputted quantity from TextBox
-                ProdQuantity = prodQty;
-            } catch (Exception) {
-                Notification n = new Notification("Invalid Input", "Quantity should not be empty!", -1, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
-                NotificationSound.PlayNotificationSound(NotificationSound.Sounds.Error);
-                n.Show();
-                return;
-            }
+                // Ensure quantity is above 0
+                if (ProdQuantity == 0.00M) {
+                    ControlHelpers.ErrorNotification("Incomplete Input", "Quantity should be more than zero (0)!", 3);
+                    return;
+                }
 
-            // Retrieve product from selected product id
-            var _product = ProductServices.GetProduct(Convert.ToInt32(ddlProducts.SelectedValue));
+                // Ensure quantity is not more than product available stock
+                bool flag = CheckQuantity();
+                if (flag == false) {
+                    Proceed = false;
+                    return;
+                }
 
-            // Set global variable - ProductStock to the value of product available stock
-            if (ProductStock != Convert.ToInt32(_product.Stock)) {
-                ProductStock = Convert.ToInt32(_product.Stock);
-            }
+                // Retrieve remarks. If empty assign the current datetime
+                Remarks = txtSalesRemarks.Text == "" ? DateTime.Now.ToString() : txtSalesRemarks.Text;
 
-            // Ensure quantity is not more than product available stock
-            bool flag = CheckQuantity();
-            if (flag == true) {
-                return;
-            }
+                // Create a selling
+                SelectedVariation.wholesale_price = chkIsWholesale.Checked ? txtSlctdProdSalePrice.Value : 0.00M;
+                var sellingEntity = ConvertToProductSellingEntity(SelectedVariation);
+                sellingEntity.Wholesale = chkIsWholesale.Checked;
 
-            CustomerName = txtCustomerName.Text;
-            CustomerInfo = txtCustomerInfo.Text;
-            PaymentType = ddlPaymentTypes.SelectedItem.ToString();
-            if (txtRemarks.Text == "") {
-                Remarks = DateTime.Now.ToString();
+                SelectedProducts.Add(sellingEntity);
+                DataHelpers.LoadGridViewData(grdViewSelectedProducts, SelectedProducts);
+
+                // Calculate the toal cost for all selected products and display in TextBox
+                TotalAmount = SelectedProducts.Sum(p => p.Amount);
+                txtTotalAmount.Text = Convert.ToString(TotalAmount);
+
+                // Reset selections
+                VariationID = new Guid();
+                SelectedVariation = new ProductVariationEntity();
+                ProdQuantity = 0;
+                ProductStock = 0;
+                txtSlctdProdQty.Value = 0.00M;
+                Proceed = true;
+                ReadyForSale = true;
             } else {
-                Remarks = txtRemarks.Text;
+                ControlHelpers.ErrorNotification("Error", "Please fix all pending errors!", 3);
             }
-            // Create/Update a selling list and append product and quantity details to the list for each selected product
-            // Convert selected product to a ProductSellingEntity
-            var sellingEntity = ConvertToProductSellingEntity(_product);
-            SelectedProducts.Add(sellingEntity);
-            DataHelpers.LoadGridViewData(grdViewSelectedProducts, SelectedProducts);
-
-            // Calculate the total cost for all selected products and display in TextBox
-            TotalAmount = SelectedProducts.Sum(s => s.Amount);
-            txtTotalSaleAmount.Text = Convert.ToString(TotalAmount);
-
-            // Reset selections
-            ddlProducts.SelectedValue = 0;
-            txtProdQuantity.Text = "0";
         }
 
         /// <summary>
-        /// Save to DB all product items listed in DataGridView
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnSubmitProductList_Click(object sender, EventArgs e) {
+        private void btnConfirmSales_Click(object sender, EventArgs e) {
             if (SelectedProducts.Count <= 0) {
-                Notification n = new Notification("Invalid Input", "You have not added a product to the DataGrid", -1, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
-                NotificationSound.PlayNotificationSound(NotificationSound.Sounds.Error);
-                n.Show();
+                ControlHelpers.ErrorNotification("Empty Cart", "Add a product to the sales cart!");
                 return;
             }
-            List<Selling_History> sh = new List<Selling_History>();
-            if (SelectedProducts != null) {
+
+            if (ddlSalesPayType.SelectedValue == null) {
+                ControlHelpers.ErrorNotification("Incomplete input", "Please select a payment type!", 3);
+                return;
+            }
+
+            // Retrieve payment type
+            PaymentType = ddlSalesPayType.SelectedItem.ToString();
+
+            // Calculate customer change
+            try {
+                CustomerChange = Convert.ToString(Convert.ToDecimal(GivenAmount) - TotalAmount);
+                txtCustomerChange.Text = CustomerChange;
+                if (Convert.ToDecimal(CustomerChange) > 0.00M) {
+                    ControlHelpers.PromptNotification("Customer's Change", string.Format("Customer's change is: {0}", CustomerChange));
+                }
+            } catch (Exception ex) {
+                ErrorLogger.LogException(ex, LoginCredentials.username ?? "Not Authenticated", "Taking in amount paid by customer and calculating change.");
+            }
+
+            // Save transaction history
+            List<Transaction_History> transaction = new List<Transaction_History>();
+            if (SelectedProducts.Count > 0) {
                 foreach (ProductSellingEntity item in SelectedProducts) {
-                    sh.Add(ConvertToSellingHistory(item));
+                    transaction.Add(ConvertToSellingHistory(item));
                 }
 
                 try {
-                    bool flag = SellingHistoryServices.AddBulkSellingHistory(sh);
+                    bool flag = TransactionHistoryServices.AddBulkTransactionHistory(transaction);
                     if (flag) {
-                        // Reload inventory summary and labelheader values
-                        ControlHelpers.SuccessNotification("Product Sold", "Products added to transaction history!");
+                        ControlHelpers.SuccessNotification("Products Sold", "Products have been added to transaction history!");
+                        //ActionHistoryServices.AddActionHistory(LoginCredentials.username ?? "Authenticated", string.Format("Sold products: {0}", SelectedProducts.Select(p => p.ProductName + ", ")));
                     }
-                } catch (Exception) {
-                    KryptonMessageBox.Show("Products could not be added to transaction history!", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    // Log error in db and text file
+                } catch (Exception ex) {
+                    string proceedure = "Confirming sales of products in sales cart!";
+
+                    // Log error to text file
+                    ErrorLogger.LogException(ex, LoginCredentials.username ?? "Not Authenticated", proceedure);
+
+                    // Log error in DB
+                    ErrorServices.AddNewError(LoginCredentials.username ?? "Not Authenticated", "Very Severe", "0", proceedure, ex.StackTrace, ex.Message);
+
+                    // Display error notification
+                    ControlHelpers.ErrorNotification("Sales Error", "Products could not be added to transaction history!");
                     return;
                 }
 
                 try {
                     foreach (ProductSellingEntity item in SelectedProducts) {
-                        ProductServices.UpdateProductStock(item.ProductId);
+                        // Reduce product stock
+                        ProductVariationServices.UpdateProductVariationStock(item.VariationId, false);
+                        // Reduce remaining quantity
+                        //ProductOrderServices.UpdateRemainingQuantity(item.VariationId);
                     }
-                } catch (Exception) {
-                    Notification n = new Notification("Product Update Error", "Product stock could not be updated!", -1, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
-                    NotificationSound.PlayNotificationSound(NotificationSound.Sounds.Error);
-                    n.Show();
-                    // Log error in db and text file
+                } catch (Exception ex) {
+                    string proceedure = "Updating product stock level!";
+
+                    // Log error to text file
+                    ErrorLogger.LogException(ex, LoginCredentials.username ?? "Not Authenticated", proceedure);
+
+                    // Log error in DB
+                    ErrorServices.AddNewError(LoginCredentials.username ?? "Not Authenticated", "Very Severe", "0", proceedure, ex.StackTrace, ex.InnerException.Message);
+
+                    // Display error notification
+                    ControlHelpers.ErrorNotification("Product Update Error", "Product stock cound not be updated!");
                     return;
                 }
             }
 
+            // Reset all resetables
+            VariationID = new Guid();
+            SelectedVariation = new ProductVariationEntity();
+            ProdQuantity = 0;
+            ProductStock = 0;
+            txtSlctdProdQty.Value = 0.00M;
+            Proceed = true;
+            ReadyForSale = true;
+            TotalAmount = 0.00M;
             SelectedProducts = new List<ProductSellingEntity>();
+            GivenAmount = "";
+            txtTotalAmount.Text = "";
+
+            // Rebind & reset DataGridViews
+            PopulateGridViewAllProducts();
+            grdViewSelectedProducts.DataSource = null;
+        }
+
+        private void txtSlctdProdQty_ValueChanged(object sender, EventArgs e) {
+            if (SelectedVariation != null) {
+                ProdQuantity = txtSlctdProdQty.Value;
+            }
+        }
+
+        private void txtSlctdProdSalePrice_ValueChanged(object sender, EventArgs e) {
+            if (SelectedVariation != null) {
+                SalePrice = txtSlctdProdSalePrice.Value;
+                SelectedVariation.retail_price = SalePrice;
+            }
+        }
+
+        private void chkIsWholesale_CheckedChanged(object sender, EventArgs e) {
+            if (SelectedVariation != null) {
+                txtSlctdProdSalePrice.Value = SelectedVariation.wholesale_price;
+            }
+        }
+
+        private void grdViewAllProducts_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) {
+            Proceed = true;
+            grdViewAllProducts.Rows[e.RowIndex].Selected = true;
+            VariationID = Guid.Parse(grdViewAllProducts.Rows[e.RowIndex].Cells[0].Value.ToString());
+
+            // Retrieve product variation
+            SelectedVariation = ProductVariationServices.GetProductVariationEntity(VariationID);
+
+            // Retrieve stock level and retail price from product variation
+            ProductStock = SelectedVariation.stock;
+            txtSlctdProdSalePrice.Value = Convert.ToDecimal(SelectedVariation.retail_price);
+
+            // Reset ProdQuantity and value box. Doing this, just to ensure that by no means does the variable and numeric box hold a valid value
+            ProdQuantity = 0;
+            txtSlctdProdQty.Value = 0.00M;
+
+            // Show notification as a cue to let user know that a product has been selected.
+            ControlHelpers.PromptNotification("Product Selected", string.Format("{0} has been been selected. Update quantity and add to the selling cart!", SelectedVariation.VariationName), 4);
+        }
+
+        private void grdViewSelectedProducts_CellEndEdit(object sender, DataGridViewCellEventArgs e) {
+            grdViewSelectedProducts.Rows[e.RowIndex].Selected = true;
+            var id = grdViewSelectedProducts.Rows[e.RowIndex].Cells[0].Value.ToString();
+            var quantity = grdViewSelectedProducts.Rows[e.RowIndex].Cells[2].Value.ToString();
+
+            // Reset ProductStock
+            ProductStock = ProductVariationServices.GetProductVariationEntity(Guid.Parse(id)).stock;
+
+            if (Convert.ToInt32(quantity) != ProdQuantity) {
+                ProdQuantity = Convert.ToInt32(quantity);
+            }
+
+            // Ensure quantity is not more than product available stock
+            bool flag = CheckQuantity();
+            if (flag == false) {
+                Proceed = false;
+                return;
+            }
+
+            var _variation = SelectedProducts.Where(p => p.VariationId == Guid.Parse(id)).FirstOrDefault();
+            SelectedProducts.Remove(_variation);
+
+            _variation.Quantity = Convert.ToInt32(ProdQuantity);
+            _variation.Amount = ProdQuantity * _variation.SellingPrice;
+            SelectedProducts.Add(_variation);
+            TotalAmount = SelectedProducts.Sum(p => p.Amount);
+            txtTotalAmount.Text = Convert.ToString(TotalAmount);
             DataHelpers.LoadGridViewData(grdViewSelectedProducts, SelectedProducts);
 
-            worker.DoWork += new DoWorkEventHandler(worker_DoWork);
-            worker.RunWorkerAsync();
+            Proceed = true;
+            ProdQuantity = 0;
+            txtSlctdProdQty.Value = 0.00M;
+            ReadyForSale = true;
         }
 
         /// <summary>
@@ -263,59 +361,67 @@ namespace Inventory.View.Products {
         /// </summary>
         /// <returns></returns>
         public bool CheckQuantity() {
-            if (ProdQuantity > ProductStock) {
-                Notification n = new Notification("Invalid Input", "Quantity is greater than stock!", -1, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
-                NotificationSound.PlayNotificationSound(NotificationSound.Sounds.Error);
-                n.Show();
-                return true;
+            bool ok = true;
+            if (ProdQuantity > ProductStock && ProductStock == 0) {
+                ControlHelpers.ErrorNotification("Empty Stock", "Product stock is empty!", 3);
+                ok = false;
+            } else {
+                if (ProdQuantity > ProductStock && ProductStock > 0) {
+                    ControlHelpers.ErrorNotification("Low Stock", string.Format("Quantity is more than product's available stock. There are only {0} items remaining!", ProductStock), -1);
+                    ok = false;
+                }
             }
-            return false;
+            return ok;
         }
 
         /// <summary>
         /// Create a new ProductSellingEntity from a product.
         /// </summary>
-        /// <param name="product"></param>
+        /// <param name="variation"></param>
         /// <returns></returns>
-        protected ProductSellingEntity ConvertToProductSellingEntity(Product product) {
+        protected ProductSellingEntity ConvertToProductSellingEntity(ProductVariationEntity variation) {
             ProductSellingEntity klass = new ProductSellingEntity() {
-                ProductId = product.id,
-                ProductName = product.name,
-                Quantity = ProdQuantity,
-                SellingPrice = product.sell_price,
-                Amount = (product.sell_price) * ProdQuantity,
+                ProductId = variation.ProductID,
+                VariationId = variation.VariationID,
+                ProductName = variation.VariationName,
+                VariationName = variation.VariationName,
+                Quantity = Convert.ToInt32(ProdQuantity),
+                SellingPrice = SalePrice,
+                Amount = (variation.retail_price) * ProdQuantity,
             };
             return klass;
         }
 
-        protected Selling_History ConvertToSellingHistory(ProductSellingEntity product) {
-            var _product = ProductServices.GetProduct(product.ProductId);
-            Selling_History temp = new Selling_History() {
-                dealer_id = _product.dealer_id,
-                product_id = _product.id,
+        protected Transaction_History ConvertToSellingHistory(ProductSellingEntity product) {
+            var _variation = ProductVariationServices.GetProductVariationEntity(product.VariationId);
+            Transaction_History temp = new Transaction_History() {
+                dealer = _variation.DealerName,
+                ProductVariationVariationID = _variation.VariationID,
                 quantity = product.Quantity,
                 credit = product.Amount,
                 debit = 0,
-                transaction_type_id = (int)TransactionType.Credit,
-                customer_name = CustomerName,
-                customer_info = CustomerInfo,
+                transaction_type = TransactionType.Credit.ToString(),
                 payment_type = PaymentType,
                 payment_date = DateTime.Now,
                 remarks = Remarks,
+                change = Convert.ToDecimal(CustomerChange),
+                balance_due = txtSalesBalanceDue.Value,
+                //ProductOrderID =
             };
 
             return temp;
         }
 
-        public void worker_DoWork(object sender, DoWorkEventArgs e) {
-            // Update label header text values
-            DateTime _todaysDate = DateTime.Now.Date;
-            DateTime firstDayOfMonth = new DateTime(_todaysDate.Year, _todaysDate.Month, 1);
-            DateTime lastDayOfMonth = new DateTime(_todaysDate.Year, _todaysDate.Month, 1).AddMonths(1).AddDays(-1);
+        private void ddlSalesPayType_SelectedIndexChanged(object sender, EventArgs e) {
+        }
 
-            TransactionsHelpers.GetTotalSaleForToday(_todaysDate);
-            TransactionsHelpers.GetTotalSalesForMonth(firstDayOfMonth, lastDayOfMonth);
-            TransactionsHelpers.GetTotalSalesForHalfYear(_todaysDate);
+        private void txtSalesBalanceDue_ValueChanged(object sender, EventArgs e) {
+        }
+
+        private void txtSalesRemarks_TextChanged(object sender, EventArgs e) {
+        }
+
+        private void txtCustomerChange_TextChanged(object sender, EventArgs e) {
         }
     }
 }

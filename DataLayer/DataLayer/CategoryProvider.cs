@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using EntityLayer;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataLayer {
@@ -14,6 +15,45 @@ namespace DataLayer {
                 _categories = db.Categories.OrderBy(c => c.name).ToList();
             }
             return _categories;
+        }
+
+        public static List<CategoryEntity> GetAllCategoryEntities() {
+            List<CategoryEntity> _category = new List<CategoryEntity>();
+            var subCategoryList = "";
+            var productList = "";
+            using (EFLInventoryContainer db = new EFLInventoryContainer()) {
+                var _categories = db.Categories.ToList();
+                var _products = db.Products.ToList();
+                var subCategories = db.SubCategories.ToList();
+
+                foreach (Category item in _categories) {
+                    foreach (SubCategory subCat in subCategories) {
+                        if (subCat.Category_id == item.id) {
+                            subCategoryList += subCat.name + ", ";
+
+                            foreach (Product product in _products) {
+                                if (product.subCategory_id == subCat.id) {
+                                    productList += product.name + ", ";
+                                }
+                            }
+                        }
+                    }
+
+                    CategoryEntity c = new CategoryEntity();
+                    c.id = item.id;
+                    c.name = item.name;
+
+                    c.SubCategories = subCategoryList.EndsWith(", ") ? subCategoryList.Remove(subCategoryList.Length - 2) : subCategoryList;
+                    c.Products = productList.EndsWith(", ") ? productList.Remove(productList.Length - 2) : productList;
+
+                    _category.Add(c);
+
+                    subCategoryList = "";
+                    productList = "";
+                }
+            }
+
+            return _category;
         }
 
         /// <summary>
@@ -55,7 +95,6 @@ namespace DataLayer {
                 if (klass.id > 0) {
                     Category temp = db.Categories.Where(u => u.id == klass.id).FirstOrDefault();
                     if (temp != null) {
-                        temp.id = klass.id;
                         temp.name = klass.name;
                         db.Entry(temp).State = System.Data.EntityState.Modified;
                     }
@@ -64,9 +103,7 @@ namespace DataLayer {
                 }
 
                 db.SaveChanges();
-                if (klass.id > 0) {
-                    _Categoryid = klass.id;
-                }
+                _Categoryid = klass.id;
             }
             return _Categoryid;
         }

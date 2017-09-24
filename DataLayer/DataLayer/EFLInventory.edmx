@@ -10,15 +10,15 @@
     <EntitySet Name="Categories" EntityType="EFLInventory.Store.Categories" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SubCategories" EntityType="EFLInventory.Store.SubCategories" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Transaction_Types" EntityType="EFLInventory.Store.Transaction_Types" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Selling_Histories" EntityType="EFLInventory.Store.Selling_Histories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Transaction_Histories" EntityType="EFLInventory.Store.Transaction_Histories" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Dealers" EntityType="EFLInventory.Store.Dealers" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="EFLInventory.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ActionHistories" EntityType="EFLInventory.Store.ActionHistories" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ErrorLogs" EntityType="EFLInventory.Store.ErrorLogs" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="DealerSelling_History" Association="EFLInventory.Store.FK_DealerSelling_History">
-      <End Role="Dealer" EntitySet="Dealers" />
-      <End Role="Selling_History" EntitySet="Selling_Histories" />
-    </AssociationSet>
+    <EntitySet Name="MeasuringTypes" EntityType="EFLInventory.Store.MeasuringTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Brands" EntityType="EFLInventory.Store.Brands" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductVariations" EntityType="EFLInventory.Store.ProductVariations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DamagedProducts" EntityType="EFLInventory.Store.DamagedProducts" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="ProductCategory" Association="EFLInventory.Store.FK_ProductCategory">
       <End Role="Product" EntitySet="Products" />
       <End Role="Category" EntitySet="Categories" />
@@ -35,9 +35,29 @@
       <End Role="Product" EntitySet="Products" />
       <End Role="Dealer" EntitySet="Dealers" />
     </AssociationSet>
-    <AssociationSet Name="Transaction_TypeSelling_History" Association="EFLInventory.Store.FK_TransactionType_SellingHistory">
-      <End Role="Transaction_Type" EntitySet="Transaction_Types" />
-      <End Role="Selling_History" EntitySet="Selling_Histories" />
+    <AssociationSet Name="MesuringTypeProductVariation" Association="EFLInventory.Store.MesuringTypeProductVariation">
+      <End Role="MesuringType" EntitySet="MeasuringTypes" />
+      <End Role="ProductVariation" EntitySet="ProductVariations" />
+    </AssociationSet>
+    <AssociationSet Name="BrandProduct" Association="EFLInventory.Store.BrandProduct">
+      <End Role="Brand" EntitySet="Brands" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_ProductVariation" Association="EFLInventory.Store.FK_Product_ProductVariation">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductVariation" EntitySet="ProductVariations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductVariation_TransactionHistory" Association="EFLInventory.Store.ProductVariationTransaction_History">
+      <End Role="ProductVariation" EntitySet="ProductVariations" />
+      <End Role="Transaction_History" EntitySet="Transaction_Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductVariation_DamagedProduct" Association="EFLInventory.Store.FK_ProductVariation_DamagedProduct">
+      <End Role="ProductVariation" EntitySet="ProductVariations" />
+      <End Role="DamagedProduct" EntitySet="DamagedProducts" />
+    </AssociationSet>
+    <AssociationSet Name="BrandDealer" Association="EFLInventory.Store.BrandDealer">
+      <End Role="Brand" EntitySet="Brands" />
+      <End Role="Dealer" EntitySet="Dealers" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Products">
@@ -46,19 +66,13 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="image_url" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="brand" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="brand_id" Type="int" Nullable="false" />
     <Property Name="dealer_id" Type="int" Nullable="false" />
     <Property Name="Category_id" Type="int" Nullable="false" />
     <Property Name="subCategory_id" Type="int" Nullable="false" />
-    <Property Name="weight" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="cost_price" Type="decimal" Nullable="false" />
-    <Property Name="sell_price" Type="decimal" Nullable="false" />
     <Property Name="status" Type="bit" Nullable="false" />
-    <Property Name="stock_threshold" Type="int" Nullable="false" DefaultValue="5" />
-    <Property Name="Stock" Type="int" Nullable="true" />
     <Property Name="date_created" Type="datetime" Nullable="false" />
-    <Property Name="last_updated" Type="datetime" Nullable="true" />
+    <Property Name="last_updated" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Categories">
     <Key>
@@ -82,22 +96,22 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="type" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="Selling_Histories">
+  <EntityType Name="Transaction_Histories">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="dealer_id" Type="int" Nullable="true" />
-    <Property Name="product_id" Type="int" Nullable="false" />
+    <Property Name="ProductVariationVariationID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="dealer" Type="nvarchar(max)" Nullable="true" />
     <Property Name="quantity" Type="int" Nullable="false" />
-    <Property Name="credit" Type="decimal" Nullable="true" />
-    <Property Name="debit" Type="decimal" Nullable="true" />
-    <Property Name="transaction_type_id" Type="int" Nullable="false" />
-    <Property Name="customer_info" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="credit" Type="decimal" Nullable="false" DefaultValue="0.00" />
+    <Property Name="debit" Type="decimal" Nullable="false" DefaultValue="0.00" />
+    <Property Name="balance_due" Type="decimal" Nullable="false" DefaultValue="0.00" />
+    <Property Name="change" Type="decimal" Nullable="false" DefaultValue="0.00" />
     <Property Name="payment_type" Type="nvarchar(max)" Nullable="false" />
     <Property Name="payment_date" Type="datetime" Nullable="false" />
-    <Property Name="customer_name" Type="nvarchar(max)" Nullable="true" />
     <Property Name="remarks" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="transaction_type" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Dealers">
     <Key>
@@ -109,7 +123,8 @@
     <Property Name="email" Type="nvarchar(max)" Nullable="true" />
     <Property Name="address" Type="nvarchar(max)" Nullable="true" />
     <Property Name="date_created" Type="datetime" Nullable="false" />
-    <Property Name="last_updated" Type="datetime" Nullable="true" />
+    <Property Name="last_updated" Type="datetime" Nullable="false" />
+    <Property Name="Brand_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -119,9 +134,11 @@
     <Property Name="username" Type="nvarchar(max)" Nullable="false" />
     <Property Name="password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="full_name" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="date_created" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="last_updated" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="date_created" Type="datetime" Nullable="false" />
+    <Property Name="last_updated" Type="datetime" Nullable="false" />
     <Property Name="is_superuser" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="is_staff" Type="bit" Nullable="false" />
+    <Property Name="last_login" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="ActionHistories">
     <Key>
@@ -129,8 +146,8 @@
     </Key>
     <Property Name="ActionHistoryID" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="timestamp" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="userid" Type="int" Nullable="false" />
+    <Property Name="timestamp" Type="datetime" Nullable="false" />
+    <Property Name="username" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ErrorLogs">
     <Key>
@@ -139,25 +156,52 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="error_time" Type="datetime" Nullable="false" />
     <Property Name="username" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="error_number" Type="nvarchar(max)" Nullable="false" />
     <Property Name="error_severity" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="error_state" Type="nvarchar(max)" Nullable="false" />
     <Property Name="error_proceedure" Type="nvarchar(max)" Nullable="false" />
     <Property Name="error_line" Type="nvarchar(max)" Nullable="false" />
     <Property Name="error_message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="timestamp" Type="datetime" Nullable="false" />
   </EntityType>
-  <Association Name="FK_DealerSelling_History">
-    <End Role="Dealer" Type="EFLInventory.Store.Dealers" Multiplicity="0..1" />
-    <End Role="Selling_History" Type="EFLInventory.Store.Selling_Histories" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Dealer">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Selling_History">
-        <PropertyRef Name="dealer_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <EntityType Name="MeasuringTypes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Brands">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductVariations">
+    <Key>
+      <PropertyRef Name="VariationID" />
+    </Key>
+    <Property Name="VariationID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Product_id" Type="int" Nullable="false" />
+    <Property Name="VariationName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="image_url" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="measured_by" Type="int" Nullable="false" />
+    <Property Name="weight" Type="decimal" Nullable="false" DefaultValue="0.00" />
+    <Property Name="cost_price" Type="decimal" Nullable="false" DefaultValue="0.00" />
+    <Property Name="retail_price" Type="decimal" Nullable="false" DefaultValue="0.00" />
+    <Property Name="wholesale_price" Type="decimal" Nullable="false" DefaultValue="0.00" />
+    <Property Name="stock_threshold" Type="int" Nullable="false" DefaultValue="0" />
+    <Property Name="stock" Type="int" Nullable="false" DefaultValue="0" />
+    <Property Name="date_created" Type="datetime" Nullable="false" />
+    <Property Name="last_updated" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DamagedProducts">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductVariationID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="quantity" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
   <Association Name="FK_ProductCategory">
     <End Role="Product" Type="EFLInventory.Store.Products" Multiplicity="*" />
     <End Role="Category" Type="EFLInventory.Store.Categories" Multiplicity="1" />
@@ -206,15 +250,75 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_TransactionType_SellingHistory">
-    <End Role="Transaction_Type" Type="EFLInventory.Store.Transaction_Types" Multiplicity="1" />
-    <End Role="Selling_History" Type="EFLInventory.Store.Selling_Histories" Multiplicity="*" />
+  <Association Name="MesuringTypeProductVariation">
+    <End Role="MesuringType" Type="EFLInventory.Store.MeasuringTypes" Multiplicity="1" />
+    <End Role="ProductVariation" Type="EFLInventory.Store.ProductVariations" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Transaction_Type">
+      <Principal Role="MesuringType">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="Selling_History">
-        <PropertyRef Name="transaction_type_id" />
+      <Dependent Role="ProductVariation">
+        <PropertyRef Name="measured_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BrandProduct">
+    <End Role="Brand" Type="EFLInventory.Store.Brands" Multiplicity="1" />
+    <End Role="Product" Type="EFLInventory.Store.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="brand_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_ProductVariation">
+    <End Role="Product" Type="EFLInventory.Store.Products" Multiplicity="1" />
+    <End Role="ProductVariation" Type="EFLInventory.Store.ProductVariations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ProductVariation">
+        <PropertyRef Name="Product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductVariationTransaction_History">
+    <End Role="ProductVariation" Type="EFLInventory.Store.ProductVariations" Multiplicity="1" />
+    <End Role="Transaction_History" Type="EFLInventory.Store.Transaction_Histories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductVariation">
+        <PropertyRef Name="VariationID" />
+      </Principal>
+      <Dependent Role="Transaction_History">
+        <PropertyRef Name="ProductVariationVariationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductVariation_DamagedProduct">
+    <End Role="ProductVariation" Type="EFLInventory.Store.ProductVariations" Multiplicity="1" />
+    <End Role="DamagedProduct" Type="EFLInventory.Store.DamagedProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductVariation">
+        <PropertyRef Name="VariationID" />
+      </Principal>
+      <Dependent Role="DamagedProduct">
+        <PropertyRef Name="ProductVariationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BrandDealer">
+    <End Role="Brand" Type="EFLInventory.Store.Brands" Multiplicity="1" />
+    <End Role="Dealer" Type="EFLInventory.Store.Dealers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Dealer">
+        <PropertyRef Name="Brand_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -227,12 +331,8 @@
           <EntitySet Name="Categories" EntityType="EFLInventory.Category" />
           <EntitySet Name="SubCategories" EntityType="EFLInventory.SubCategory" />
           <EntitySet Name="Transaction_Types" EntityType="EFLInventory.Transaction_Type" />
-          <EntitySet Name="Selling_Histories" EntityType="EFLInventory.Selling_History" />
+          <EntitySet Name="Transaction_Histories" EntityType="EFLInventory.Transaction_History" />
           <EntitySet Name="Dealers" EntityType="EFLInventory.Dealer" />
-          <AssociationSet Name="DealerSelling_History" Association="EFLInventory.FK_DealerSelling_History">
-            <End Role="Dealer" EntitySet="Dealers" />
-            <End Role="Selling_History" EntitySet="Selling_Histories" />
-          </AssociationSet>
           <AssociationSet Name="ProductCategory" Association="EFLInventory.FK_ProductCategory">
             <End Role="Product" EntitySet="Products" />
             <End Role="Category" EntitySet="Categories" />
@@ -249,36 +349,56 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="Dealer" EntitySet="Dealers" />
           </AssociationSet>
-          <AssociationSet Name="Transaction_TypeSelling_History" Association="EFLInventory.FK_TransactionType_SellingHistory">
-            <End Role="Transaction_Type" EntitySet="Transaction_Types" />
-            <End Role="Selling_History" EntitySet="Selling_Histories" />
-          </AssociationSet>
           <EntitySet Name="Users" EntityType="EFLInventory.User" />
           <EntitySet Name="ActionHistories" EntityType="EFLInventory.ActionHistory" />
           <EntitySet Name="ErrorLogs" EntityType="EFLInventory.ErrorLog" />
-        </EntityContainer>
+          <EntitySet Name="MeasuringTypes" EntityType="EFLInventory.MeasuringType" />
+          <AssociationSet Name="MesuringTypeProductVariation" Association="EFLInventory.MesuringTypeProductVariation">
+            <End Role="MesuringType" EntitySet="MeasuringTypes" />
+            <End Role="ProductVariation" EntitySet="ProductVariations" />
+          </AssociationSet>
+          <EntitySet Name="Brands" EntityType="EFLInventory.Brand" />
+          <AssociationSet Name="BrandProduct" Association="EFLInventory.BrandProduct">
+            <End Role="Brand" EntitySet="Brands" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <EntitySet Name="ProductVariations" EntityType="EFLInventory.ProductVariation" />
+          <AssociationSet Name="FK_Product_ProductVariation" Association="EFLInventory.FK_Product_ProductVariation">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductVariation" EntitySet="ProductVariations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductVariation_TransactionHistory" Association="EFLInventory.ProductVariationTransaction_History">
+            <End Role="ProductVariation" EntitySet="ProductVariations" />
+            <End Role="Transaction_History" EntitySet="Transaction_Histories" />
+          </AssociationSet>
+          <EntitySet Name="DamagedProducts" EntityType="EFLInventory.DamagedProduct" />
+          <AssociationSet Name="FK_ProductVariation_DamagedProduct" Association="EFLInventory.FK_ProductVariation_DamagedProduct">
+            <End Role="ProductVariation" EntitySet="ProductVariations" />
+            <End Role="DamagedProduct" EntitySet="DamagedProducts" />
+          </AssociationSet>
+          <AssociationSet Name="BrandDealer" Association="EFLInventory.BrandDealer">
+            <End Role="Brand" EntitySet="Brands" />
+            <End Role="Dealer" EntitySet="Dealers" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" />
-          <Property Name="image_url" Type="String" />
-          <Property Name="brand" Type="String" />
+          <Property Name="brand_id" Type="Int32" Nullable="false" />
           <Property Name="dealer_id" Type="Int32" Nullable="false" />
           <Property Name="Category_id" Type="Int32" Nullable="false" />
           <Property Name="subCategory_id" Type="Int32" Nullable="false" />
-          <Property Name="weight" Type="String" Nullable="false" />
-          <Property Name="cost_price" Type="Decimal" Nullable="false" />
-          <Property Name="sell_price" Type="Decimal" Nullable="false" />
-          <Property Name="status" Type="Boolean" Nullable="false" />
-          <Property Name="stock_threshold" Type="Int32" DefaultValue="5" Nullable="false" />
-          <Property Name="Stock" Type="Int32" />
+          <Property Name="status" Nullable="false" Type="Boolean" />
           <NavigationProperty Name="Category" Relationship="EFLInventory.FK_ProductCategory" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="SubCategory" Relationship="EFLInventory.FK_ProductSubCategory" FromRole="Product" ToRole="SubCategory" />
           <NavigationProperty Name="Dealer" Relationship="EFLInventory.FK_ProductDealer" FromRole="Product" ToRole="Dealer" />
           <Property Name="date_created" Type="DateTime" Nullable="false" />
-          <Property Name="last_updated" Type="DateTime" />
+          <Property Name="last_updated" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Brand" Relationship="EFLInventory.BrandProduct" FromRole="Product" ToRole="Brand" />
+          <NavigationProperty Name="ProductVariations" Relationship="EFLInventory.FK_Product_ProductVariation" FromRole="Product" ToRole="ProductVariation" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -305,26 +425,24 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="type" Type="String" Nullable="false" />
-          <NavigationProperty Name="Selling_History" Relationship="EFLInventory.FK_TransactionType_SellingHistory" FromRole="Transaction_Type" ToRole="Selling_History" />
         </EntityType>
-        <EntityType Name="Selling_History">
+        <EntityType Name="Transaction_History">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="dealer_id" Type="Int32" Nullable="true" />
-          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="ProductVariationVariationID" Type="Guid" Nullable="false" />
+          <Property Name="dealer" Type="String" Nullable="true" />
           <Property Name="quantity" Type="Int32" Nullable="false" />
-          <Property Name="credit" Type="Decimal" />
-          <Property Name="debit" Type="Decimal" />
-          <Property Name="transaction_type_id" Type="Int32" Nullable="false" />
-          <Property Name="customer_info" Type="String" />
+          <Property Name="credit" Type="Decimal" Nullable="false" DefaultValue="0.00" />
+          <Property Name="debit" Type="Decimal" Nullable="false" DefaultValue="0.00" />
+          <Property Name="balance_due" Type="Decimal" Nullable="false" DefaultValue="0.00" />
+          <Property Name="change" Type="Decimal" Nullable="false" DefaultValue="0.00" />
           <Property Name="payment_type" Type="String" Nullable="false" />
           <Property Name="payment_date" Type="DateTime" Nullable="false" />
-          <Property Name="customer_name" Type="String" />
           <Property Name="remarks" Type="String" />
-          <NavigationProperty Name="Dealer" Relationship="EFLInventory.FK_DealerSelling_History" FromRole="Selling_History" ToRole="Dealer" />
-          <NavigationProperty Name="Transaction_Type" Relationship="EFLInventory.FK_TransactionType_SellingHistory" FromRole="Selling_History" ToRole="Transaction_Type" />
+          <NavigationProperty Name="ProductVariation" Relationship="EFLInventory.ProductVariationTransaction_History" FromRole="Transaction_History" ToRole="ProductVariation" />
+          <Property Name="transaction_type" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Dealer">
           <Key>
@@ -335,23 +453,12 @@
           <Property Name="phone" Type="String" Nullable="false" />
           <Property Name="email" Type="String" annotation:StoreGeneratedPattern="None" />
           <Property Name="address" Type="String" />
-          <NavigationProperty Name="Selling_History" Relationship="EFLInventory.FK_DealerSelling_History" FromRole="Dealer" ToRole="Selling_History" />
           <NavigationProperty Name="Products" Relationship="EFLInventory.FK_ProductDealer" FromRole="Dealer" ToRole="Product" />
           <Property Name="date_created" Type="DateTime" Nullable="false" />
-          <Property Name="last_updated" Type="DateTime" />
+          <Property Name="last_updated" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Brand" Relationship="EFLInventory.BrandDealer" FromRole="Dealer" ToRole="Brand" />
+          <Property Name="Brand_id" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="FK_DealerSelling_History">
-          <End Type="EFLInventory.Dealer" Role="Dealer" Multiplicity="0..1" />
-          <End Type="EFLInventory.Selling_History" Role="Selling_History" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Dealer">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Selling_History">
-              <PropertyRef Name="dealer_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductCategory">
           <End Type="EFLInventory.Product" Role="Product" Multiplicity="*" />
           <End Type="EFLInventory.Category" Role="Category" Multiplicity="1" />
@@ -400,18 +507,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TransactionType_SellingHistory">
-          <End Type="EFLInventory.Transaction_Type" Role="Transaction_Type" Multiplicity="1" />
-          <End Type="EFLInventory.Selling_History" Role="Selling_History" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Transaction_Type">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Selling_History">
-              <PropertyRef Name="transaction_type_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="id" />
@@ -420,9 +515,11 @@
           <Property Name="username" Type="String" Nullable="false" />
           <Property Name="password" Type="String" Nullable="false" />
           <Property Name="full_name" Type="String" />
-          <Property Name="date_created" Type="String" Nullable="false" />
-          <Property Name="last_updated" Type="String" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" />
+          <Property Name="last_updated" Type="DateTime" Nullable="false" />
           <Property Name="is_superuser" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="is_staff" Type="Boolean" Nullable="false" />
+          <Property Name="last_login" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="ActionHistory">
           <Key>
@@ -430,8 +527,8 @@
           </Key>
           <Property Name="ActionHistoryID" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="description" Type="String" Nullable="false" />
-          <Property Name="timestamp" Type="String" Nullable="false" />
-          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="username" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="ErrorLog">
           <Key>
@@ -440,14 +537,133 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="error_time" Type="DateTime" Nullable="false" />
           <Property Name="username" Type="String" Nullable="false" />
-          <Property Name="error_number" Type="String" Nullable="false" />
           <Property Name="error_severity" Type="String" Nullable="false" />
-          <Property Name="error_state" Type="String" Nullable="false" />
           <Property Name="error_proceedure" Type="String" Nullable="false" />
           <Property Name="error_line" Type="String" Nullable="false" />
           <Property Name="error_message" Type="String" Nullable="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" />
         </EntityType>
-      </Schema>
+        <EntityType Name="ProductVariation">
+          <Key>
+            <PropertyRef Name="VariationID" />
+          </Key>
+          <Property Name="VariationID" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Product_id" Type="Int32" Nullable="false" />
+          <Property Name="VariationName" Type="String" Nullable="false" />
+          <Property Name="image_url" Type="String" />
+          <Property Name="measured_by" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MesuringType" Relationship="EFLInventory.MesuringTypeProductVariation" FromRole="ProductVariation" ToRole="MesuringType" />
+          <Property Name="weight" Type="Decimal" Nullable="false" DefaultValue="0.00" />
+          <Property Name="cost_price" Type="Decimal" Nullable="false" DefaultValue="0.00" />
+          <Property Name="retail_price" Type="Decimal" Nullable="false" DefaultValue="0.00" />
+          <Property Name="wholesale_price" Type="Decimal" Nullable="false" DefaultValue="0.00" />
+          <Property Name="stock_threshold" Type="Int32" Nullable="false" DefaultValue="0" />
+          <Property Name="stock" Type="Int32" Nullable="false" DefaultValue="0" />
+          <NavigationProperty Name="Product" Relationship="EFLInventory.FK_Product_ProductVariation" FromRole="ProductVariation" ToRole="Product" />
+          <NavigationProperty Name="Transaction_Histories" Relationship="EFLInventory.ProductVariationTransaction_History" FromRole="ProductVariation" ToRole="Transaction_History" />
+          <NavigationProperty Name="DamagedProducts" Relationship="EFLInventory.FK_ProductVariation_DamagedProduct" FromRole="ProductVariation" ToRole="DamagedProduct" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" />
+          <Property Name="last_updated" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MeasuringType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ProductVariations" Relationship="EFLInventory.MesuringTypeProductVariation" FromRole="MesuringType" ToRole="ProductVariation" />
+          <Property Name="name" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="MesuringTypeProductVariation">
+          <End Type="EFLInventory.MeasuringType" Role="MesuringType" Multiplicity="1" />
+          <End Type="EFLInventory.ProductVariation" Role="ProductVariation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MesuringType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductVariation">
+              <PropertyRef Name="measured_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="EFLInventory.BrandProduct" FromRole="Brand" ToRole="Product" />
+          <NavigationProperty Name="Dealers" Relationship="EFLInventory.BrandDealer" FromRole="Brand" ToRole="Dealer" />
+        </EntityType>
+        <Association Name="BrandProduct">
+          <End Type="EFLInventory.Brand" Role="Brand" Multiplicity="1" />
+          <End Type="EFLInventory.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="brand_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_ProductVariation">
+          <End Type="EFLInventory.Product" Role="Product" Multiplicity="1" />
+          <End Type="EFLInventory.ProductVariation" Role="ProductVariation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductVariation">
+              <PropertyRef Name="Product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductVariationTransaction_History">
+          <End Type="EFLInventory.ProductVariation" Role="ProductVariation" Multiplicity="1" />
+          <End Type="EFLInventory.Transaction_History" Role="Transaction_History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariation">
+              <PropertyRef Name="VariationID" />
+            </Principal>
+            <Dependent Role="Transaction_History">
+              <PropertyRef Name="ProductVariationVariationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DamagedProduct">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ProductVariation" Relationship="EFLInventory.FK_ProductVariation_DamagedProduct" FromRole="DamagedProduct" ToRole="ProductVariation" />
+          <Property Name="ProductVariationID" Type="Guid" Nullable="false" />
+          <Property Name="quantity" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ProductVariation_DamagedProduct">
+          <End Type="EFLInventory.ProductVariation" Role="ProductVariation" Multiplicity="1" />
+          <End Type="EFLInventory.DamagedProduct" Role="DamagedProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariation">
+              <PropertyRef Name="VariationID" />
+            </Principal>
+            <Dependent Role="DamagedProduct">
+              <PropertyRef Name="ProductVariationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BrandDealer">
+          <End Type="EFLInventory.Brand" Role="Brand" Multiplicity="1" />
+          <End Type="EFLInventory.Dealer" Role="Dealer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dealer">
+              <PropertyRef Name="Brand_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -458,17 +674,11 @@
         <MappingFragment StoreEntitySet="Products">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="image_url" ColumnName="image_url" />
-          <ScalarProperty Name="brand" ColumnName="brand" />
+          <ScalarProperty Name="brand_id" ColumnName="brand_id" />
           <ScalarProperty Name="dealer_id" ColumnName="dealer_id" />
           <ScalarProperty Name="Category_id" ColumnName="Category_id" />
           <ScalarProperty Name="subCategory_id" ColumnName="subCategory_id" />
-          <ScalarProperty Name="weight" ColumnName="weight" />
-          <ScalarProperty Name="cost_price" ColumnName="cost_price" />
-          <ScalarProperty Name="sell_price" ColumnName="sell_price" />
           <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="stock_threshold" ColumnName="stock_threshold" />
-          <ScalarProperty Name="Stock" ColumnName="Stock" />
           <ScalarProperty Name="date_created" ColumnName="date_created" />
           <ScalarProperty Name="last_updated" ColumnName="last_updated" />
         </MappingFragment>
@@ -499,21 +709,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Selling_Histories">
-      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.Selling_History)">
-        <MappingFragment StoreEntitySet="Selling_Histories">
+    <EntitySetMapping Name="Transaction_Histories">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.Transaction_History)">
+        <MappingFragment StoreEntitySet="Transaction_Histories">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="dealer_id" ColumnName="dealer_id" />
-          <ScalarProperty Name="product_id" ColumnName="product_id" />
+          <ScalarProperty Name="ProductVariationVariationID" ColumnName="ProductVariationVariationID" />
+          <ScalarProperty Name="dealer" ColumnName="dealer" />
           <ScalarProperty Name="quantity" ColumnName="quantity" />
           <ScalarProperty Name="credit" ColumnName="credit" />
           <ScalarProperty Name="debit" ColumnName="debit" />
-          <ScalarProperty Name="transaction_type_id" ColumnName="transaction_type_id" />
-          <ScalarProperty Name="customer_info" ColumnName="customer_info" />
+          <ScalarProperty Name="balance_due" ColumnName="balance_due" />
+          <ScalarProperty Name="change" ColumnName="change" />
           <ScalarProperty Name="payment_type" ColumnName="payment_type" />
           <ScalarProperty Name="payment_date" ColumnName="payment_date" />
-          <ScalarProperty Name="customer_name" ColumnName="customer_name" />
           <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="transaction_type" ColumnName="transaction_type" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -527,6 +737,7 @@
           <ScalarProperty Name="address" ColumnName="address" />
           <ScalarProperty Name="date_created" ColumnName="date_created" />
           <ScalarProperty Name="last_updated" ColumnName="last_updated" />
+          <ScalarProperty Name="Brand_id" ColumnName="Brand_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -540,6 +751,8 @@
           <ScalarProperty Name="date_created" ColumnName="date_created" />
           <ScalarProperty Name="last_updated" ColumnName="last_updated" />
           <ScalarProperty Name="is_superuser" ColumnName="is_superuser" />
+          <ScalarProperty Name="is_staff" ColumnName="is_staff" />
+          <ScalarProperty Name="last_login" ColumnName="last_login" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -549,7 +762,7 @@
           <ScalarProperty Name="ActionHistoryID" ColumnName="ActionHistoryID" />
           <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="username" ColumnName="username" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -559,12 +772,55 @@
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="error_time" ColumnName="error_time" />
           <ScalarProperty Name="username" ColumnName="username" />
-          <ScalarProperty Name="error_number" ColumnName="error_number" />
           <ScalarProperty Name="error_severity" ColumnName="error_severity" />
-          <ScalarProperty Name="error_state" ColumnName="error_state" />
           <ScalarProperty Name="error_proceedure" ColumnName="error_proceedure" />
           <ScalarProperty Name="error_line" ColumnName="error_line" />
           <ScalarProperty Name="error_message" ColumnName="error_message" />
+          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MeasuringTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.MeasuringType)">
+        <MappingFragment StoreEntitySet="MeasuringTypes">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Brands">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.Brand)">
+        <MappingFragment StoreEntitySet="Brands">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductVariations">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.ProductVariation)">
+        <MappingFragment StoreEntitySet="ProductVariations">
+          <ScalarProperty Name="VariationID" ColumnName="VariationID" />
+          <ScalarProperty Name="Product_id" ColumnName="Product_id" />
+          <ScalarProperty Name="VariationName" ColumnName="VariationName" />
+          <ScalarProperty Name="image_url" ColumnName="image_url" />
+          <ScalarProperty Name="measured_by" ColumnName="measured_by" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="cost_price" ColumnName="cost_price" />
+          <ScalarProperty Name="retail_price" ColumnName="retail_price" />
+          <ScalarProperty Name="wholesale_price" ColumnName="wholesale_price" />
+          <ScalarProperty Name="stock_threshold" ColumnName="stock_threshold" />
+          <ScalarProperty Name="stock" ColumnName="stock" />
+          <ScalarProperty Name="date_created" ColumnName="date_created" />
+          <ScalarProperty Name="last_updated" ColumnName="last_updated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DamagedProducts">
+      <EntityTypeMapping TypeName="IsTypeOf(EFLInventory.DamagedProduct)">
+        <MappingFragment StoreEntitySet="DamagedProducts">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ProductVariationID" ColumnName="ProductVariationID" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

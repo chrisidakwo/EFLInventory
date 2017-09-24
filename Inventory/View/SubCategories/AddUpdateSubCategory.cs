@@ -1,10 +1,8 @@
 ﻿using BusinessLayer;
 using ComponentFactory.Krypton.Toolkit;
 using DataLayer;
+using Inventory.View.Helpers;
 using System;
-using ToastNotification;
-using static Inventory.ToastNotification.NotificationSound;
-using static ToastNotification.FormAnimator;
 
 namespace Inventory.View.SubCategories {
     public partial class AddUpdateSubCategory : KryptonForm {
@@ -19,9 +17,7 @@ namespace Inventory.View.SubCategories {
         private void btnAddSubCategory_Click(object sender, System.EventArgs e) {
             var subcategory_name = txtSubCategoryName.Text.Trim();
             if (subcategory_name.Equals(string.Empty)) {
-                Notification n = new Notification("Invalid Input", "SubCategory name cannot be empty!", -1, AnimationMethod.Slide, AnimationDirection.Up);
-                PlayNotificationSound(Sounds.Error);
-                n.Show();
+                ControlHelpers.ErrorNotification("Invalid Input", "SubCategory name cannot be empty!");
                 return;
             }
 
@@ -33,9 +29,7 @@ namespace Inventory.View.SubCategories {
                     name = subcategory_name,
                 };
             } else {
-                Notification n = new Notification("Category Exists", subcategory_name.ToLower().Replace(subcategory_name.Substring(0, 1), subcategory_name.Substring(0, 1).ToUpper()) + " already exists!", -1, AnimationMethod.Slide, AnimationDirection.Up);
-                PlayNotificationSound(Sounds.Error);
-                n.Show();
+                ControlHelpers.ErrorNotification("Category Exists", subcategory_name.ToLower().Replace(subcategory_name.Substring(0, 1), subcategory_name.Substring(0, 1).ToUpper()) + " already exists!");
                 return;
             }
 
@@ -45,9 +39,7 @@ namespace Inventory.View.SubCategories {
             try {
                 int id = SubCategoryServices.AddUpdateSubCategory(_subcategory);
                 if (id > 0) {
-                    Notification n = new Notification("New SubCategory Created", subcategory_name + " subcategory created successfully!", -1, AnimationMethod.Slide, AnimationDirection.Up);
-                    PlayNotificationSound(Sounds.Success);
-                    n.Show();
+                    ControlHelpers.SuccessNotification("New SubCategory Created", subcategory_name + " subcategory created successfully!");
 
                     string description = "Added a new subcategory: " + subcategory_name;
                     //int userid = LoginCredentials.userid;
@@ -57,14 +49,10 @@ namespace Inventory.View.SubCategories {
                     //}
                     this.Close();
                 } else {
-                    Notification n = new Notification("Save Error", "SubCategory was not saved in the database!", -1, AnimationMethod.Slide, AnimationDirection.Up);
-                    PlayNotificationSound(Sounds.Error);
-                    n.Show();
+                    ControlHelpers.ErrorNotification("Save Error", "SubCategory was not saved in the database!");
                 }
             } catch (Exception) {
-                Notification n = new Notification("An error occurred while saving subcategory.", "UnHandled Error!", -1, AnimationMethod.Slide, AnimationDirection.Up);
-                PlayNotificationSound(Sounds.Error);
-                n.Show();
+                ControlHelpers.ErrorNotification("An error occurred while saving subcategory.", "UnHandled Error!");
             }
         }
     }

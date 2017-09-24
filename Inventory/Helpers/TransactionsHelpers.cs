@@ -20,7 +20,7 @@ namespace Inventory.Helpers {
         public static string GetOverAllBalance() {
             decimal oBalance = 0.00M;
             try {
-                oBalance = SellingHistoryProvider.GetOverAllBalance(null, null);
+                oBalance = TransactionHistoryProvider.GetOverAllBalance(null, null);
             } catch (Exception) {
                 ControlHelpers.ErrorNotification("Background Task Error", "An error occurred while calculating overall balance!");
             }
@@ -47,7 +47,7 @@ namespace Inventory.Helpers {
         public static string GetMonthBalance(DateTime firstDayOfMonth, DateTime lastDayOfMonth) {
             decimal mBalance = 0.00M;
             try {
-                mBalance = SellingHistoryProvider.GetOverAllBalance(firstDayOfMonth, lastDayOfMonth);
+                mBalance = TransactionHistoryProvider.GetOverAllBalance(firstDayOfMonth, lastDayOfMonth);
             } catch (Exception) {
                 ControlHelpers.ErrorNotification("Background Task Error", "An error occurred while calculating your balance for this month!");
             }
@@ -69,10 +69,10 @@ namespace Inventory.Helpers {
         /// </summary>
         /// <returns></returns>
         public static string GetProductsWithEmptyStock() {
-            var EmptyStockList = ProductServices.GetEmptyStockList();
+            var EmptyStockList = ProductVariationServices.GetEmptyStock();
             if (EmptyStockList.Count > 0) {
-                foreach (Product _product in EmptyStockList) {
-                    EmptyStockProductList += _product.name + ", ";
+                foreach (ProductVariationEntity _variation in EmptyStockList) {
+                    EmptyStockProductList += _variation.ProductName + ", ";
                 }
             }
 
@@ -96,12 +96,12 @@ namespace Inventory.Helpers {
             var historyToday = new List<TransactionSellingEntity>();
 
             try {
-                historyToday = SellingHistoryServices.GetAllCreditTransaction(todayDate, null);
+                historyToday = TransactionHistoryServices.GetAllCreditTransaction(todayDate, null);
             } catch (Exception) {
             }
 
             if (historyToday != null) {
-                t = string.Format("{0:#, ###0.#}", Convert.ToDouble(historyToday.Sum(s => s.Credit.Value)));
+                t = string.Format("{0:#, ###0.#}", Convert.ToDouble(historyToday.Sum(s => s.Credit)));
                 Global.Get.TotalSalesToday = "N" + t.Trim().Replace(" ", "");
             } else {
                 t = "0";
@@ -121,12 +121,12 @@ namespace Inventory.Helpers {
             var historyMonth = new List<TransactionSellingEntity>();
 
             try {
-                historyMonth = SellingHistoryServices.GetAllCreditTransaction(firstDayOfMonth, lastDayOfMonth);
+                historyMonth = TransactionHistoryServices.GetAllCreditTransaction(firstDayOfMonth, lastDayOfMonth);
             } catch (Exception) {
             }
 
             if (historyMonth != null) {
-                m = string.Format("{0:#, ###0.#}", Convert.ToDouble(historyMonth.Sum(s => s.Credit.Value)));
+                m = string.Format("{0:#, ###0.#}", Convert.ToDouble(historyMonth.Sum(s => s.Credit)));
                 Global.Get.TotalSalesMonth = "N" + m.Trim().Replace(" ", "");
             } else {
                 m = "0";
@@ -154,12 +154,12 @@ namespace Inventory.Helpers {
             var historyHalfYear = new List<TransactionSellingEntity>();
 
             try {
-                historyHalfYear = SellingHistoryServices.GetAllCreditTransaction(startdate, enddate);
+                historyHalfYear = TransactionHistoryServices.GetAllCreditTransaction(startdate, enddate);
             } catch (Exception) {
             }
 
             if (historyHalfYear != null) {
-                h = string.Format("{0:#, ###0.#}", Convert.ToDouble(historyHalfYear.Sum(s => s.Credit.Value)));
+                h = string.Format("{0:#, ###0.#}", Convert.ToDouble(historyHalfYear.Sum(s => s.Credit)));
                 Global.Get.TotalSalesHalfYear = "N" + h.Trim().Replace(" ", "");
             } else {
                 h = "0";
@@ -169,18 +169,18 @@ namespace Inventory.Helpers {
         }
 
         public static string GetValueOfEntireStock() {
-            decimal value = 0;
+            decimal value = 0.00M;
             var h = "";
 
             try {
                 using (EFLInventoryContainer db = new EFLInventoryContainer()) {
-                    value = db.Products.Where(p => p.Stock > 0).Sum(p => p.cost_price);
+                    value = db.ProductVariations.Where(v => v.stock > 0).Sum(v => v.retail_price * v.stock);
                 }
             } catch (Exception) {
             }
 
-            if (value != 0.00M || value.ToString() != null || value.ToString() != "0") {
-                h = string.Format("{0:#, ###0.#", value);
+            if (value != 0.00M || value.ToString() != "0") {
+                h = string.Format("{0:#, ###0.#}", Convert.ToDouble(value));
                 Global.Get.InventoryValue = "N" + h.Trim().Replace(" ", "");
             } else {
                 h = "0";

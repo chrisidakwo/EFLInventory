@@ -35,12 +35,12 @@ namespace Inventory.View {
             this.txtPassword = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.txtPasswordConfirm = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.btnCreateUser = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.chkIsSuperUser = new ComponentFactory.Krypton.Toolkit.KryptonCheckBox();
             this.btnDeleteUser = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnUpdateUser = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ddlSelectUser = new System.Windows.Forms.ComboBox();
             this.lblSelectUser = new System.Windows.Forms.Label();
+            this.chkIsAdmin = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -121,14 +121,6 @@ namespace Inventory.View {
             this.btnCreateUser.Values.Text = "SAVE";
             this.btnCreateUser.Click += new System.EventHandler(this.btnCreateUser_Click);
             // 
-            // chkIsSuperUser
-            // 
-            this.chkIsSuperUser.Location = new System.Drawing.Point(194, 220);
-            this.chkIsSuperUser.Name = "chkIsSuperUser";
-            this.chkIsSuperUser.Size = new System.Drawing.Size(97, 20);
-            this.chkIsSuperUser.TabIndex = 9;
-            this.chkIsSuperUser.Values.Text = "Is SuperUser?";
-            // 
             // btnDeleteUser
             // 
             this.btnDeleteUser.Location = new System.Drawing.Point(269, 261);
@@ -176,6 +168,14 @@ namespace Inventory.View {
             this.lblSelectUser.TabIndex = 0;
             this.lblSelectUser.Text = "Select User:";
             // 
+            // chkIsAdmin
+            // 
+            this.chkIsAdmin.Location = new System.Drawing.Point(194, 220);
+            this.chkIsAdmin.Name = "chkIsAdmin";
+            this.chkIsAdmin.Size = new System.Drawing.Size(108, 20);
+            this.chkIsAdmin.TabIndex = 9;
+            this.chkIsAdmin.Text = "Is Admin?";
+            // 
             // UserAccountConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -185,7 +185,7 @@ namespace Inventory.View {
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnUpdateUser);
             this.Controls.Add(this.btnDeleteUser);
-            this.Controls.Add(this.chkIsSuperUser);
+            this.Controls.Add(this.chkIsAdmin);
             this.Controls.Add(this.btnCreateUser);
             this.Controls.Add(this.txtPasswordConfirm);
             this.Controls.Add(this.txtPassword);
@@ -226,11 +226,11 @@ namespace Inventory.View {
         private KryptonTextBox txtPassword;
         private KryptonTextBox txtPasswordConfirm;
         private KryptonButton btnCreateUser;
-        private KryptonCheckBox chkIsSuperUser;
         private KryptonButton btnDeleteUser;
         private KryptonButton btnUpdateUser;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox ddlSelectUser;
         private System.Windows.Forms.Label lblSelectUser;
+        private System.Windows.Forms.CheckBox chkIsAdmin;
     }
 }

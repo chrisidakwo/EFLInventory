@@ -6,14 +6,13 @@ namespace DataLayer {
             bool flag = false;
             using (EFLInventoryContainer db = new EFLInventoryContainer()) {
                 ErrorLog error = new ErrorLog() {
-                    error_number = "None",
                     error_time = DateTime.Now,
                     username = Username,
                     error_severity = ErrorSeverity,
                     error_proceedure = ErrorProceedure,
-                    error_state = ErrorState,
                     error_line = ErrorLine,
-                    error_message = ErrorMessage
+                    error_message = ErrorMessage,
+                    timestamp = DateTime.Now,
                 };
 
                 db.ErrorLogs.Add(error);

@@ -14,7 +14,11 @@ namespace Inventory.Utils {
                 log += Environment.NewLine;
                 log += "\nException Summary:";
                 log += Environment.NewLine;
-                log += ex.InnerException.Message;
+                if (ex.InnerException != null) {
+                    log += ex.InnerException.Message;
+                } else {
+                    log += "InnerException is null";
+                }
                 log += Environment.NewLine;
                 if (ex.InnerException != null) {
                     log += Environment.NewLine;

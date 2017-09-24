@@ -6,16 +6,72 @@ namespace DataLayer {
     public class SubCategoryProvider {
         public static List<SubCategoryEntity> GetAllSubCategoryEntity() {
             List<SubCategoryEntity> _subcategory = new List<SubCategoryEntity>();
+            var productList = "";
             using (EFLInventoryContainer db = new EFLInventoryContainer()) {
-                _subcategory = (from u in db.SubCategories
-                                select new SubCategoryEntity {
-                                    id = u.id,
-                                    name = u.name,
-                                    category_id = u.Category_id,
-                                    category_name = u.Category.name
-                                }).ToList();
+                var subcategories = db.SubCategories.ToList();
+                var categories = db.Categories.ToList();
+                var products = db.Products.ToList();
+
+                foreach (SubCategory item in subcategories) {
+                    foreach (Category category in categories) {
+                        if (item.Category_id == category.id) {
+                            foreach (Product product in products) {
+                                if (product.subCategory_id == item.id && product.Category_id == category.id) {
+                                    productList += product.name + ", ";
+                                }
+                            }
+
+                            SubCategoryEntity s = new SubCategoryEntity();
+                            s.id = item.id;
+                            s.name = item.name;
+                            s.category_id = category.id;
+                            s.category_name = category.name;
+                            s.products = productList.EndsWith(", ") ? productList.Remove(productList.Length - 2) : productList;
+
+                            _subcategory.Add(s);
+
+                            productList = "";
+                        }
+                    }
+                }
             }
             return _subcategory;
+        }
+
+        public static List<CategoryEntity> GetAllCategoryEntities() {
+            List<CategoryEntity> _category = new List<CategoryEntity>();
+            var subCategoryList = "";
+            var productList = "";
+            using (EFLInventoryContainer db = new EFLInventoryContainer()) {
+                var _categories = db.Categories.ToList();
+                var _products = db.Products.ToList();
+                var subCategories = db.SubCategories.ToList();
+
+                foreach (Category item in _categories) {
+                    foreach (SubCategory subCat in subCategories) {
+                        if (subCat.id == item.id) {
+                            subCategoryList += subCat.name + ", ";
+
+                            foreach (Product product in _products) {
+                                if (product.subCategory_id == subCat.id) {
+                                    productList += product.name + ", ";
+                                }
+                            }
+                        }
+                    }
+
+                    CategoryEntity c = new CategoryEntity();
+                    c.id = item.id;
+                    c.name = item.name;
+
+                    c.SubCategories = subCategoryList.EndsWith(", ") ? subCategoryList.Remove(productList.Length - 2) : subCategoryList;
+                    c.Products = productList.EndsWith(", ") ? productList.Remove(productList.Length - 2) : productList;
+
+                    _category.Add(c);
+                }
+            }
+
+            return _category;
         }
 
         public static List<SubCategoryEntity> GetAllSubCategoryEntity(int subCategoryId, int CategoryId) {

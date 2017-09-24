@@ -1,22 +1,22 @@
 ﻿using BusinessLayer;
-using DataLayer;
 using EntityLayer;
 using Inventory.Helpers;
-using Inventory.Model;
 using Inventory.View.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using static Inventory.Helpers.InventoryHelper;
 using static Inventory.Helpers.StringHelpers;
 
 namespace Inventory.View.Products {
     public partial class ViewProducts : UserControl {
         public new string ProductName = "";
+        public string FileName = "";
+        public Guid VariationID = new Guid();
         public int ProductID = 0;
-        public List<ProductEntity> ProductEntities = new List<ProductEntity>();
-        public List<ProductEntity> SortedEntities = new List<ProductEntity>();
+        public List<ProductVariationEntity> ProductEntities = new List<ProductVariationEntity>();
+        public List<ProductVariationEntity> SortedEntities = new List<ProductVariationEntity>();
         public ViewProducts() {
             InitializeComponent();
 
@@ -28,12 +28,12 @@ namespace Inventory.View.Products {
             LoadSortOrder();
         }
 
-        private void PopulateGridView(List<ProductEntity> products) {
-            var _products = new List<ProductEntity>();
+        private void PopulateGridView(List<ProductVariationEntity> products) {
+            var _products = new List<ProductVariationEntity>();
             if (products != null) {
                 _products = products;
             } else {
-                _products = ProductServices.GetAllProductEntity();
+                _products = ProductVariationServices.GetAllProductsWithVariations();
                 ProductEntities = _products;
                 SortedEntities = _products;
             }
@@ -51,16 +51,16 @@ namespace Inventory.View.Products {
         private void btnSearchProductByName_Click(object sender, System.EventArgs e) {
             var searchText = txtSearchProductByName.Text;
             if (searchText != "") {
-                var products = ProductEntities.Where(p => p.name.Equals(searchText, StringComparison.OrdinalIgnoreCase) || p.name.CaseInsensitiveContains(searchText)).ToList();
-                SortedEntities = products;
-                PopulateGridView(products);
+                var variations = ProductEntities.Where(v => v.ProductName.Equals(searchText, StringComparison.OrdinalIgnoreCase) || v.ProductName.CaseInsensitiveContains(searchText)).ToList();
+                SortedEntities = variations;
+                PopulateGridView(variations);
             }
         }
 
         private void btnSearchProductsByBrand_Click(object sender, System.EventArgs e) {
             var searchText = txtSearchProductsByBrand.Text;
             if (searchText != "") {
-                var products = ProductEntities.Where(p => p.brand.Equals(searchText, StringComparison.OrdinalIgnoreCase) || p.brand.CaseInsensitiveContains(searchText)).ToList();
+                var products = ProductEntities.Where(v => v.BrandName.Equals(searchText, StringComparison.OrdinalIgnoreCase) || v.BrandName.CaseInsensitiveContains(searchText)).ToList();
                 SortedEntities = products;
                 PopulateGridView(products);
             }
@@ -75,53 +75,56 @@ namespace Inventory.View.Products {
         private void ddlSortProducts_SelectedIndexChanged(object sender, EventArgs e) {
             var selectedSort = ddlSortProducts.SelectedItem.ToString();
             var sortOrder = ddlSortOrder.SelectedItem.ToString();
+
+            grdViewAllProducts.Sort(grdViewAllProducts.Columns[0], ListSortDirection.Ascending);
+
             if (sortOrder == "" || sortOrder == null) {
                 ControlHelpers.ErrorNotification("Incomplete Input", "Select an order - either Ascending or Descending!");
                 return;
             }
             if (selectedSort != null || selectedSort != "") {
-                var products = new List<ProductEntity>();
+                var products = new List<ProductVariationEntity>();
                 switch (selectedSort) {
                     case "Name":
                         if (sortOrder == "Ascending") {
-                            products = SortedEntities.OrderBy(p => p.name).ToList();
+                            products = SortedEntities.OrderBy(v => v.ProductName).ToList();
                         } else {
-                            products = SortedEntities.OrderByDescending(p => p.name).ToList();
+                            products = SortedEntities.OrderByDescending(v => v.ProductName).ToList();
                         }
                         break;
                     case "Brand":
                         if (sortOrder == "Ascending") {
-                            products = SortedEntities.OrderBy(p => p.brand).ToList();
+                            products = SortedEntities.OrderBy(v => v.BrandName).ToList();
                         } else {
-                            products = SortedEntities.OrderByDescending(p => p.brand).ToList();
+                            products = SortedEntities.OrderByDescending(v => v.BrandName).ToList();
                         }
                         break;
                     case "Category":
                         if (sortOrder == "Ascending") {
-                            products = SortedEntities.OrderBy(p => p.category_name).ToList();
+                            products = SortedEntities.OrderBy(v => v.CategoryName).ToList();
                         } else {
-                            products = SortedEntities.OrderByDescending(p => p.category_name).ToList();
+                            products = SortedEntities.OrderByDescending(v => v.CategoryName).ToList();
                         }
                         break;
                     case "SubCategory":
                         if (sortOrder == "Ascending") {
-                            products = SortedEntities.OrderBy(p => p.subcategory_name).ToList();
+                            products = SortedEntities.OrderBy(v => v.SubCategoryName).ToList();
                         } else {
-                            products = SortedEntities.OrderByDescending(p => p.subcategory_name).ToList();
+                            products = SortedEntities.OrderByDescending(v => v.SubCategoryName).ToList();
                         }
                         break;
                     case "SalePrice":
                         if (sortOrder == "Ascending") {
-                            products = SortedEntities.OrderBy(p => p.sell_price).ToList();
+                            products = SortedEntities.OrderBy(v => v.retail_price).ToList();
                         } else {
-                            products = SortedEntities.OrderByDescending(p => p.sell_price).ToList();
+                            products = SortedEntities.OrderByDescending(v => v.retail_price).ToList();
                         }
                         break;
                     case "Stock":
                         if (sortOrder == "Ascending") {
-                            products = SortedEntities.OrderBy(p => p.Stock).ToList();
+                            products = SortedEntities.OrderBy(v => v.stock).ToList();
                         } else {
-                            products = SortedEntities.OrderByDescending(p => p.Stock).ToList();
+                            products = SortedEntities.OrderByDescending(v => v.stock).ToList();
                         }
                         break;
                 }
@@ -136,18 +139,39 @@ namespace Inventory.View.Products {
             ddlSortProducts_SelectedIndexChanged(this, new EventArgs());
         }
 
-        private void grdViewAllProducts_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) {
-            grdViewAllProducts.Rows[e.RowIndex].Selected = true;
-            ProductName = grdViewAllProducts.Rows[e.RowIndex].Cells[0].Value.ToString();
-            var product = ProductServices.GetProductsByName(ProductName).FirstOrDefault();
-            ProductID = product.id;
-
-            BaseObject<Product>.name = "Product";
-            BaseObject<Product>.value = product;
-
-            using (AddUpdateProduct p = new AddUpdateProduct()) {
-                p.ShowDialog(this);
+        private void btnGenerateReportAsExcel_Click(object sender, EventArgs e) {
+            FileName = txtReportFilename.Text;
+            if (FileName != "") {
+                DocumentHelpers.ExportToExcel(ProductEntities, FileName);
+                return;
             }
+
+            DocumentHelpers.ExportToExcel(ProductEntities, @"Our Products");
+        }
+
+        private void btnGenerateReportAsCSV_Click(object sender, EventArgs e) {
+            FileName = txtReportFilename.Text;
+            if (FileName != "") {
+                DocumentHelpers.ExportToCSV(ProductEntities, FileName);
+                return;
+            }
+
+            DocumentHelpers.ExportToCSV(ProductEntities, @"Our Products");
+        }
+
+        public enum SortChoices {
+            [Description("Name")]
+            Name = 0,
+            [Description("Brand")]
+            Brand = 1,
+            [Description("Category")]
+            Category = 2,
+            [Description("SubCategory")]
+            SubCategory = 3,
+            [Description("Stock")]
+            Stock = 4,
+            [Description("Sale Price")]
+            SalePrice = 5
         }
     }
 }

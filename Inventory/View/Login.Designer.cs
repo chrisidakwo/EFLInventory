@@ -54,56 +54,113 @@ namespace Inventory.View {
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.LoginTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.grpBoxLoginGroup = new System.Windows.Forms.GroupBox();
             this.btn_Login = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.lblPassword = new System.Windows.Forms.Label();
             this.txtPassword = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.txtEmailAddress = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.lblEmailAddress = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblUserAcctConfig = new System.Windows.Forms.LinkLabel();
             this.LoginTableLayoutPanel.SuspendLayout();
-            this.grpBoxLoginGroup.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.grpBoxLoginGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // LoginTableLayoutPanel
             // 
+            this.LoginTableLayoutPanel.BackgroundImage = RandomBackgroundImage()[z];
             this.LoginTableLayoutPanel.BackColor = System.Drawing.Color.Transparent;
             this.LoginTableLayoutPanel.ColumnCount = 3;
-            this.LoginTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.94798F));
-            this.LoginTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.05202F));
-            this.LoginTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 191F));
-            this.LoginTableLayoutPanel.Controls.Add(this.grpBoxLoginGroup, 1, 1);
-            this.LoginTableLayoutPanel.Controls.Add(this.panel1, 1, 2);
+            this.LoginTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.LoginTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.LoginTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.LoginTableLayoutPanel.Controls.Add(this.tableLayoutPanel1, 1, 0);
             this.LoginTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoginTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.LoginTableLayoutPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.LoginTableLayoutPanel.Name = "LoginTableLayoutPanel";
-            this.LoginTableLayoutPanel.RowCount = 3;
-            this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 39.35484F));
-            this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.64516F));
-            this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 140F));
+            this.LoginTableLayoutPanel.RowCount = 1;
+            this.LoginTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.LoginTableLayoutPanel.Size = new System.Drawing.Size(718, 451);
             this.LoginTableLayoutPanel.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Font = new System.Drawing.Font("Source Sans Pro", 10F);
+            this.tableLayoutPanel1.ForeColor = System.Drawing.Color.White;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(182, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(353, 445);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.grpBoxLoginGroup);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 69);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(347, 305);
+            this.panel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Source Sans Pro", 16F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(139, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(169, 46);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Emi FoodLovers";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::Inventory.Properties.Resources.Updated_Logo;
+            this.pictureBox1.Location = new System.Drawing.Point(51, 16);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(83, 65);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
             // grpBoxLoginGroup
             // 
             this.grpBoxLoginGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBoxLoginGroup.BackColor = System.Drawing.Color.Transparent;
             this.grpBoxLoginGroup.Controls.Add(this.btn_Login);
             this.grpBoxLoginGroup.Controls.Add(this.lblPassword);
             this.grpBoxLoginGroup.Controls.Add(this.txtPassword);
             this.grpBoxLoginGroup.Controls.Add(this.txtEmailAddress);
             this.grpBoxLoginGroup.Controls.Add(this.lblEmailAddress);
-            this.grpBoxLoginGroup.Font = new System.Drawing.Font("Source Sans Pro", 14F, System.Drawing.FontStyle.Bold);
-            this.grpBoxLoginGroup.ForeColor = System.Drawing.Color.White;
-            this.grpBoxLoginGroup.Location = new System.Drawing.Point(176, 126);
+            this.grpBoxLoginGroup.Font = new System.Drawing.Font("Source Sans Pro", 12F, System.Drawing.FontStyle.Bold);
+            this.grpBoxLoginGroup.ForeColor = System.Drawing.Color.Black;
+            this.grpBoxLoginGroup.Location = new System.Drawing.Point(13, 101);
             this.grpBoxLoginGroup.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.grpBoxLoginGroup.Name = "grpBoxLoginGroup";
             this.grpBoxLoginGroup.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grpBoxLoginGroup.Size = new System.Drawing.Size(347, 180);
+            this.grpBoxLoginGroup.Size = new System.Drawing.Size(321, 178);
             this.grpBoxLoginGroup.TabIndex = 0;
             this.grpBoxLoginGroup.TabStop = false;
             this.grpBoxLoginGroup.Text = "ACCOUNT LOGIN";
@@ -117,7 +174,7 @@ namespace Inventory.View {
             this.btn_Login.Font = new System.Drawing.Font("Source Sans Pro", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Login.Location = new System.Drawing.Point(25, 126);
             this.btn_Login.Name = "btn_Login";
-            this.btn_Login.Size = new System.Drawing.Size(300, 38);
+            this.btn_Login.Size = new System.Drawing.Size(274, 36);
             this.btn_Login.TabIndex = 4;
             this.btn_Login.Values.Text = "LOGIN";
             this.btn_Login.Click += new System.EventHandler(this.btn_Login_Click);
@@ -126,6 +183,7 @@ namespace Inventory.View {
             // 
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Source Sans Pro", 12F);
+            this.lblPassword.ForeColor = System.Drawing.Color.Black;
             this.lblPassword.Location = new System.Drawing.Point(21, 84);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(78, 20);
@@ -139,11 +197,18 @@ namespace Inventory.View {
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPassword.Font = new System.Drawing.Font("Source Sans Pro Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.HideSelection = false;
             this.txtPassword.Location = new System.Drawing.Point(116, 83);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '●';
-            this.txtPassword.Size = new System.Drawing.Size(209, 23);
+            this.txtPassword.Size = new System.Drawing.Size(183, 23);
+            this.txtPassword.StateNormal.Border.Color1 = System.Drawing.Color.Black;
+            this.txtPassword.StateNormal.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.txtPassword.StateNormal.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.txtPassword.StateNormal.Border.Width = 1;
             this.txtPassword.TabIndex = 2;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
@@ -153,50 +218,29 @@ namespace Inventory.View {
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEmailAddress.Font = new System.Drawing.Font("Source Sans Pro", 11F);
+            this.txtEmailAddress.HideSelection = false;
             this.txtEmailAddress.Location = new System.Drawing.Point(116, 42);
             this.txtEmailAddress.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtEmailAddress.Name = "txtEmailAddress";
-            this.txtEmailAddress.Size = new System.Drawing.Size(209, 23);
+            this.txtEmailAddress.Size = new System.Drawing.Size(183, 23);
+            this.txtEmailAddress.StateNormal.Border.Color1 = System.Drawing.Color.Black;
+            this.txtEmailAddress.StateNormal.Border.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.txtEmailAddress.StateNormal.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.txtEmailAddress.StateNormal.Border.Width = 1;
             this.txtEmailAddress.TabIndex = 1;
             // 
             // lblEmailAddress
             // 
             this.lblEmailAddress.AutoSize = true;
             this.lblEmailAddress.Font = new System.Drawing.Font("Source Sans Pro", 12F);
+            this.lblEmailAddress.ForeColor = System.Drawing.Color.Black;
             this.lblEmailAddress.Location = new System.Drawing.Point(45, 44);
             this.lblEmailAddress.Name = "lblEmailAddress";
             this.lblEmailAddress.Size = new System.Drawing.Size(50, 20);
             this.lblEmailAddress.TabIndex = 0;
             this.lblEmailAddress.Text = "Email:";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lblUserAcctConfig);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(176, 313);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(347, 135);
-            this.panel1.TabIndex = 1;
-            // 
-            // lblUserAcctConfig
-            // 
-            this.lblUserAcctConfig.AccessibleRole = System.Windows.Forms.AccessibleRole.Link;
-            this.lblUserAcctConfig.ActiveLinkColor = System.Drawing.Color.White;
-            this.lblUserAcctConfig.AutoSize = true;
-            this.lblUserAcctConfig.BackColor = System.Drawing.Color.Transparent;
-            this.lblUserAcctConfig.DisabledLinkColor = System.Drawing.Color.White;
-            this.lblUserAcctConfig.Font = new System.Drawing.Font("Source Sans Pro", 10F);
-            this.lblUserAcctConfig.ForeColor = System.Drawing.Color.White;
-            this.lblUserAcctConfig.LinkColor = System.Drawing.Color.White;
-            this.lblUserAcctConfig.Location = new System.Drawing.Point(86, 111);
-            this.lblUserAcctConfig.Name = "lblUserAcctConfig";
-            this.lblUserAcctConfig.Size = new System.Drawing.Size(172, 18);
-            this.lblUserAcctConfig.TabIndex = 0;
-            this.lblUserAcctConfig.TabStop = true;
-            this.lblUserAcctConfig.Text = "User Account Configuration";
-            this.lblUserAcctConfig.Visible = false;
-            this.lblUserAcctConfig.VisitedLinkColor = System.Drawing.Color.White;
-            this.lblUserAcctConfig.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblUserAcctConfig_LinkClicked);
             // 
             // Login
             // 
@@ -204,7 +248,6 @@ namespace Inventory.View {
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.BackgroundImage = RandomBackgroundImage()[z];
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(718, 451);
             this.Controls.Add(this.LoginTableLayoutPanel);
@@ -220,10 +263,11 @@ namespace Inventory.View {
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login - EFL Inventory Management";
             this.LoginTableLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.grpBoxLoginGroup.ResumeLayout(false);
             this.grpBoxLoginGroup.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -237,8 +281,10 @@ namespace Inventory.View {
         private KryptonTextBox txtEmailAddress;
         private KryptonTextBox txtPassword;
         private KryptonButton btn_Login;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.LinkLabel lblUserAcctConfig;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox1;
         //private System.Windows.Forms.Button btnLogin;
     }
 }

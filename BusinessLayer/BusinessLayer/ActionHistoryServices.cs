@@ -2,13 +2,14 @@
 
 namespace BusinessLayer {
     public class ActionHistoryServices {
-        public static bool AddActionHistory(int userid, string description) {
+        public static bool AddActionHistory(string username, string description) {
             bool flag = false;
-
-            if (userid.ToString() != string.Empty && description != string.Empty) {
-                ActionHistoryProvider.AddActionHistory(userid, description);
-                flag = true;
-            }
+            string name = username == "" ? "Test" : username;
+            ActionHistoryProvider.AddActionHistory(name, description);
+            //if (username != "" && description != "") {
+            //    ActionHistoryProvider.AddActionHistory(username, description);
+            //    flag = true;
+            //}
 
             return flag;
         }

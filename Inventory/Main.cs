@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using ComponentFactory.Krypton.Toolkit;
+using DataLayer;
 using EntityLayer;
 using Inventory.Helpers;
 using Inventory.Model;
@@ -20,6 +21,7 @@ using System.Windows.Forms;
 
 namespace Inventory {
     public partial class Main : KryptonForm, INotifyPropertyChanged {
+        public static User CurrentUser { get; set; }
         public BackgroundWorker worker = new BackgroundWorker();
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -78,6 +80,8 @@ namespace Inventory {
             worker.DoWork += new DoWorkEventHandler(worker_DoWork);
             worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
             worker.RunWorkerAsync();
+
+            CurrentUser = UserServices.GetUserByUsername(LoginCredentials.username);
         }
 
         private void PopulateGridView() {
@@ -119,6 +123,12 @@ namespace Inventory {
         }
 
         private void inventorySummaryToolStripMenuItem_Click(object sender, EventArgs e) {
+            mainPanel.Controls.Clear();
+            PopulateGridView();
+            worker.DoWork += new DoWorkEventHandler(worker_DoWork);
+            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
+            worker.RunWorkerAsync();
+            mainPanel.Controls.Add(mainView_splitContainer);
         }
 
         private void addCategoryToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -128,7 +138,7 @@ namespace Inventory {
 
         private void viewCategoriesToolStripMenuItem_Click(object sender, EventArgs e) {
             var controls = new ViewCategories().Controls;
-            ControlHelpers.DisplayUserControl(mainView_splitContainer, controls);
+            ControlHelpers.DisplayUserControl(mainPanel, controls);
         }
 
         private void addSubCategoriesToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -138,17 +148,17 @@ namespace Inventory {
 
         private void viewSubCategoriesToolStripMenuItem_Click(object sender, EventArgs e) {
             var controls = new ViewSubCategories().Controls;
-            ControlHelpers.DisplayUserControl(mainView_splitContainer, controls);
+            ControlHelpers.DisplayUserControl(mainPanel, controls);
         }
 
-        private void addProductToolStripMenuItem_Click(object sender, EventArgs e) {
-            AddUpdateProduct productView = new AddUpdateProduct();
-            productView.ShowDialog();
+        public void addProductToolStripMenuItem_Click(object sender, EventArgs e) {
+            var controls = new AddUpdateProduct().Controls;
+            ControlHelpers.DisplayUserControl(mainPanel, controls);
         }
 
         private void viewProductsToolStripMenuItem_Click(object sender, EventArgs e) {
             var controls = new ViewProducts().Controls;
-            ControlHelpers.DisplayUserControl(mainView_splitContainer, controls);
+            ControlHelpers.DisplayUserControl(mainPanel, controls);
         }
 
         private void productStockEntryToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -158,7 +168,7 @@ namespace Inventory {
 
         private void sellProductToolStripMenuItem_Click(object sender, EventArgs e) {
             var controls = new SellProducts().Controls;
-            ControlHelpers.DisplayUserControl(mainView_splitContainer, controls);
+            ControlHelpers.DisplayUserControl(mainPanel, controls);
         }
 
         private void addDealerToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -166,17 +176,17 @@ namespace Inventory {
 
         private void categoryToolStripMenuItem_Click(object sender, EventArgs e) {
             var controls = new ViewCategories().Controls;
-            ControlHelpers.DisplayUserControl(mainView_splitContainer, controls);
+            ControlHelpers.DisplayUserControl(mainPanel, controls);
         }
 
         private void subCategoryToolStripMenuItem_Click(object sender, EventArgs e) {
             var controls = new ViewSubCategories().Controls;
-            ControlHelpers.DisplayUserControl(mainView_splitContainer, controls);
+            ControlHelpers.DisplayUserControl(mainPanel, controls);
         }
 
         private void viewDealersToolStripMenuItem_Click(object sender, EventArgs e) {
             var controls = new ViewDealers().Controls;
-            ControlHelpers.DisplayUserControl(mainView_splitContainer, controls);
+            ControlHelpers.DisplayUserControl(mainPanel, controls);
         }
 
         private void aboutUsToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -186,37 +196,81 @@ namespace Inventory {
 
         private void testChartToolStripMenuItem_Click(object sender, EventArgs e) {
             var tc = new TestChart().Controls;
-            ControlHelpers.DisplayUserControl(mainView_splitContainer, tc);
+            ControlHelpers.DisplayUserControl(mainPanel, tc);
         }
 
         private void viewTransactionsToolStripMenuItem_Click(object sender, EventArgs e) {
             var controls = new ViewTransactions().Controls;
-            ControlHelpers.DisplayUserControl(mainView_splitContainer, controls);
+            ControlHelpers.DisplayUserControl(mainPanel, controls);
         }
 
         private void generateReportMSExcelToolStripMenuItem_Click(object sender, EventArgs e) {
-            var gridView = grdViewInventorySummary;
-            DocumentHelpers.ExportToExcelInterop(gridView);
+            if (CurrentUser != null && CurrentUser.is_superuser) {
+                try {
+                    DocumentHelpers.ExportToExcel(Summaries, "Inventory Summary");
+                } catch (Exception ex) {
+                    ErrorLogger.LogException(ex, LoginCredentials.username, "Generating MS Excel report for inventory summary.");
+                }
+            } else {
+                ControlHelpers.ErrorNotification("Access Denied", "You do not have the required permission to generate inventory report!");
+            }
         }
 
         private void generateReportCSVToolStripMenuItem_Click(object sender, EventArgs e) {
-            var gridview = grdViewInventorySummary;
-            try {
-                DocumentHelpers.ExportToCSV(gridview);
-            } catch (Exception ex) {
-                ErrorLogger.LogException(ex, LoginCredentials.username, "Generating report for inventory summary.");
+            if (CurrentUser != null && CurrentUser.is_superuser) {
+                var gridview = grdViewInventorySummary;
+                try {
+                    DocumentHelpers.ExportToCSV(gridview, "Inventory Summary");
+                } catch (Exception ex) {
+                    ErrorLogger.LogException(ex, LoginCredentials.username, "Generating CSV report for inventory summary.");
+                }
+                ControlHelpers.SuccessNotification("Success", "Report has been saved successfully!");
+            } else {
+                ControlHelpers.ErrorNotification("Access Denied", "You do not have the required permission to generate inventory report!");
             }
-            ControlHelpers.SuccessNotification("Success", "Report has been saved successfully!");
         }
 
         private void downloadTransactionsReportToolStripMenuItem_Click(object sender, EventArgs e) {
-            var controls = new GenerateReports().Controls;
-            ControlHelpers.DisplayUserControl(mainView_splitContainer, controls);
+            if (CurrentUser != null && CurrentUser.is_superuser) {
+                var controls = new GenerateReports().Controls;
+                ControlHelpers.DisplayUserControl(mainPanel, controls);
+            } else {
+                ControlHelpers.ErrorNotification("Access Denied", "You do not have the required permission to view the Transactions Report page!");
+            }
         }
 
         private void accountSettingsToolStripMenuItem_Click(object sender, EventArgs e) {
-            UserAccountConfig account = new UserAccountConfig();
-            account.ShowDialog();
+            if (CurrentUser != null && CurrentUser.is_superuser) {
+                UserAccountConfig account = new UserAccountConfig();
+                account.ShowDialog();
+            } else {
+                ControlHelpers.ErrorNotification("Access Denied", "You do not have the required permission to view the Accounts Settings page!");
+            }
+        }
+
+        public void addProductVariationToolStripMenuItem_Click(object sender, EventArgs e) {
+            AddUpdateProductVariation variation = new AddUpdateProductVariation();
+            variation.ShowDialog();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
+            var username = LoginCredentials.username;
+            if (username != "") {
+                if (CurrentUser != null && CurrentUser.is_superuser) {
+                    var controls = new InventorySettings().Controls;
+                    ControlHelpers.DisplayUserControl(mainPanel, controls);
+                } else {
+                    ControlHelpers.ErrorNotification("Access Denied", "You do not have the required permission to access the Settings page!");
+                    return;
+                }
+            } else {
+                ControlHelpers.ErrorNotification("Authentication Error", "You should login to view this page!");
+            }
+        }
+
+        private void viewBrandsToolStripMenuItem_Click(object sender, EventArgs e) {
+            AddUpdateBrand brand = new AddUpdateBrand();
+            brand.ShowDialog();
         }
     }
 }

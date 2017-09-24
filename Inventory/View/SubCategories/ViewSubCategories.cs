@@ -71,8 +71,7 @@ namespace Inventory.View.SubCategories {
                 subCategory.name = SubCategoryName;
                 subCategory.Category_id = Convert.ToInt32(ddlCategories.SelectedValue);
             } else {
-                var name = SubCategoryName.ToLower().Replace(SubCategoryName.Substring(0, 1), SubCategoryName.Substring(0, 1).ToUpper());
-                ControlHelpers.ErrorNotification("SubCategory Exists", name + " already exists!");
+                ControlHelpers.ErrorNotification("Duplicate Name", "SubCategory with similar name already exists!");
                 return;
             }
 
@@ -101,8 +100,14 @@ namespace Inventory.View.SubCategories {
                 return;
             }
 
-            if (txtSubCategoryName.Text == "") {
+            if (SubCategoryName == "") {
                 ControlHelpers.ErrorNotification("Invalid Input", "SubCategory name should not be empty!");
+                return;
+            }
+
+            var subCategoryEntity = SubCategories.Where(s => s.name == SubCategoryName).FirstOrDefault();
+            if (subCategoryEntity != null) {
+                ControlHelpers.ErrorNotification("Duplicate Name", "SubCategory with similar name already exists!");
                 return;
             }
 

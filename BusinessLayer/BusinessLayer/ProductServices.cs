@@ -1,12 +1,17 @@
 ﻿using DataLayer;
 using EntityLayer;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Windows.Forms;
 
 namespace BusinessLayer {
     public class ProductServices {
-        public static int AddUpdateProduct(Product klass) {
-            return ProductProvider.AddUpdateProduct(klass);
+        public static int AddProduct(Product klass) {
+            return ProductProvider.AddProduct(klass);
+        }
+
+        public static int UpdateProduct(Product klass) {
+            return ProductProvider.UpdateProduct(klass);
         }
 
         public static Product GetProduct(int ProductId) {
@@ -15,6 +20,10 @@ namespace BusinessLayer {
 
         public static List<Product> GetAllActiveProducts() {
             return ProductProvider.GetAllActiveProducts();
+        }
+
+        public static AutoCompleteStringCollection GetAllActiveProductsAsCSV() {
+            return ProductProvider.GetAllActiveProductsAsCSV();
         }
 
         public static List<Product> GetAllProducts() {
@@ -33,12 +42,8 @@ namespace BusinessLayer {
             return ProductProvider.GetProductsByName(ProductName);
         }
 
-        public static List<ProductEntity> GetProductsEntityById(int ProductId) {
-            return ProductProvider.GetProductEntityById(ProductId);
-        }
-
-        public static ProductEntity GetProductEntityById(int ProductId) {
-            return ProductProvider.GetProductEntityById(ProductId).FirstOrDefault();
+        public static Product GetProductFromVariation(Guid VariationId) {
+            return ProductProvider.GetProductFromVariation(VariationId);
         }
 
         public static Dealer GetProductDealer(int ProductId) {
@@ -47,14 +52,6 @@ namespace BusinessLayer {
 
         public static List<Product> GetProductBySubCategory(int subcategoryId) {
             return ProductProvider.GetProductsBySubCategory(subcategoryId);
-        }
-
-        public static int UpdateProductStock(int ProductId) {
-            return ProductProvider.UpdateProductStock(ProductId);
-        }
-
-        public static List<Product> GetEmptyStockList() {
-            return ProductProvider.GetEmptyStock();
         }
 
         public static bool CheckProductNameAvailable(string ProductName) {

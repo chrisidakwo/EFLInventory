@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using EntityLayer;
 using System.Collections.Generic;
 
 namespace BusinessLayer {
@@ -9,6 +10,10 @@ namespace BusinessLayer {
 
         public static List<Category> GetAllCategories() {
             return CategoryProvider.GetAllCategories();
+        }
+
+        public static List<CategoryEntity> GetAllCategoryEntity() {
+            return CategoryProvider.GetAllCategoryEntities();
         }
 
         public static Category GetCategoryByName(string CategoryName) {

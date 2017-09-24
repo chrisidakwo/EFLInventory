@@ -29,7 +29,6 @@
             this.mainView_menuStrip = new System.Windows.Forms.MenuStrip();
             this.homeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configurationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inventoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inventorySummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,20 +42,20 @@
             this.viewProductsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.productsStockEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sellProductsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewInactiveProductsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dealersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewDealersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewBrandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewTransactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadTransactionsReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contactUsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutUsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grdViewInventorySummary = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.productName = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
             this.productStock = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
+            this.unitMeasurement = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
+            this.salePrice = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
             this.productTotalSales = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
-            this.productCostPrice = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
             this.mainView_splitContainer = new System.Windows.Forms.SplitContainer();
             this.TablePanelSummaries = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -71,6 +70,7 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblEntireStockValueHeader = new System.Windows.Forms.Label();
             this.lblEntireStockValueAmt = new System.Windows.Forms.Label();
+            this.mainPanel = new System.Windows.Forms.Panel();
             this.mainView_statusStrip.SuspendLayout();
             this.mainView_menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdViewInventorySummary)).BeginInit();
@@ -83,6 +83,7 @@
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainView_statusStrip
@@ -123,7 +124,6 @@
             // 
             this.homeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.accountSettingsToolStripMenuItem,
-            this.configurationsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.homeToolStripMenuItem.Name = "homeToolStripMenuItem";
             this.homeToolStripMenuItem.Size = new System.Drawing.Size(56, 22);
@@ -131,6 +131,7 @@
             // 
             // accountSettingsToolStripMenuItem
             // 
+            this.accountSettingsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("accountSettingsToolStripMenuItem.Image")));
             this.accountSettingsToolStripMenuItem.Name = "accountSettingsToolStripMenuItem";
             this.accountSettingsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.A)));
@@ -138,14 +139,9 @@
             this.accountSettingsToolStripMenuItem.Text = "Account Settings";
             this.accountSettingsToolStripMenuItem.Click += new System.EventHandler(this.accountSettingsToolStripMenuItem_Click);
             // 
-            // configurationsToolStripMenuItem
-            // 
-            this.configurationsToolStripMenuItem.Name = "configurationsToolStripMenuItem";
-            this.configurationsToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.configurationsToolStripMenuItem.Text = "Configurations";
-            // 
             // exitToolStripMenuItem
             // 
+            this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
@@ -164,6 +160,7 @@
             // 
             // inventorySummaryToolStripMenuItem
             // 
+            this.inventorySummaryToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("inventorySummaryToolStripMenuItem.Image")));
             this.inventorySummaryToolStripMenuItem.Name = "inventorySummaryToolStripMenuItem";
             this.inventorySummaryToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
             this.inventorySummaryToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
@@ -172,6 +169,7 @@
             // 
             // generateReportMSExcelToolStripMenuItem
             // 
+            this.generateReportMSExcelToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("generateReportMSExcelToolStripMenuItem.Image")));
             this.generateReportMSExcelToolStripMenuItem.Name = "generateReportMSExcelToolStripMenuItem";
             this.generateReportMSExcelToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.generateReportMSExcelToolStripMenuItem.Text = "Generate Report (MS Excel)";
@@ -179,6 +177,7 @@
             // 
             // generateReportCSVToolStripMenuItem
             // 
+            this.generateReportCSVToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("generateReportCSVToolStripMenuItem.Image")));
             this.generateReportCSVToolStripMenuItem.Name = "generateReportCSVToolStripMenuItem";
             this.generateReportCSVToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.generateReportCSVToolStripMenuItem.Text = "Generate Report (CSV)";
@@ -196,6 +195,7 @@
             // 
             // categoryToolStripMenuItem
             // 
+            this.categoryToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("categoryToolStripMenuItem.Image")));
             this.categoryToolStripMenuItem.Name = "categoryToolStripMenuItem";
             this.categoryToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
             this.categoryToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
@@ -204,6 +204,7 @@
             // 
             // subCategoryToolStripMenuItem
             // 
+            this.subCategoryToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("subCategoryToolStripMenuItem.Image")));
             this.subCategoryToolStripMenuItem.Name = "subCategoryToolStripMenuItem";
             this.subCategoryToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.S)));
@@ -217,66 +218,74 @@
             this.addProductToolStripMenuItem,
             this.viewProductsToolStripMenuItem,
             this.productsStockEntryToolStripMenuItem,
-            this.sellProductsToolStripMenuItem,
-            this.viewInactiveProductsToolStripMenuItem});
+            this.sellProductsToolStripMenuItem});
+            this.productToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("productToolStripMenuItem1.Image")));
             this.productToolStripMenuItem1.Name = "productToolStripMenuItem1";
             this.productToolStripMenuItem1.Size = new System.Drawing.Size(221, 22);
             this.productToolStripMenuItem1.Text = "Product";
             // 
             // addProductToolStripMenuItem
             // 
+            this.addProductToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("addProductToolStripMenuItem.Image")));
             this.addProductToolStripMenuItem.Name = "addProductToolStripMenuItem";
             this.addProductToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
-            this.addProductToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.addProductToolStripMenuItem.Text = "Add Product";
+            this.addProductToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.addProductToolStripMenuItem.Text = "Add/Update Products";
             this.addProductToolStripMenuItem.Click += new System.EventHandler(this.addProductToolStripMenuItem_Click);
             // 
             // viewProductsToolStripMenuItem
             // 
+            this.viewProductsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("viewProductsToolStripMenuItem.Image")));
             this.viewProductsToolStripMenuItem.Name = "viewProductsToolStripMenuItem";
             this.viewProductsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.P)));
-            this.viewProductsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.viewProductsToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.viewProductsToolStripMenuItem.Text = "View Products";
             this.viewProductsToolStripMenuItem.Click += new System.EventHandler(this.viewProductsToolStripMenuItem_Click);
             // 
             // productsStockEntryToolStripMenuItem
             // 
+            this.productsStockEntryToolStripMenuItem.Image = global::Inventory.Properties.Resources.StockEntry;
             this.productsStockEntryToolStripMenuItem.Name = "productsStockEntryToolStripMenuItem";
             this.productsStockEntryToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.E)));
-            this.productsStockEntryToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.productsStockEntryToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.productsStockEntryToolStripMenuItem.Text = "Products Stock Entry";
             this.productsStockEntryToolStripMenuItem.Click += new System.EventHandler(this.productStockEntryToolStripMenuItem_Click);
             // 
             // sellProductsToolStripMenuItem
             // 
+            this.sellProductsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("sellProductsToolStripMenuItem.Image")));
             this.sellProductsToolStripMenuItem.Name = "sellProductsToolStripMenuItem";
             this.sellProductsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
-            this.sellProductsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.sellProductsToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.sellProductsToolStripMenuItem.Text = "Sell Products";
             this.sellProductsToolStripMenuItem.Click += new System.EventHandler(this.sellProductToolStripMenuItem_Click);
-            // 
-            // viewInactiveProductsToolStripMenuItem
-            // 
-            this.viewInactiveProductsToolStripMenuItem.Name = "viewInactiveProductsToolStripMenuItem";
-            this.viewInactiveProductsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.viewInactiveProductsToolStripMenuItem.Text = "View Inactive Products";
             // 
             // dealersToolStripMenuItem
             // 
             this.dealersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewDealersToolStripMenuItem});
+            this.viewDealersToolStripMenuItem,
+            this.viewBrandsToolStripMenuItem});
             this.dealersToolStripMenuItem.Name = "dealersToolStripMenuItem";
             this.dealersToolStripMenuItem.Size = new System.Drawing.Size(65, 22);
             this.dealersToolStripMenuItem.Text = "Dealers";
             // 
             // viewDealersToolStripMenuItem
             // 
+            this.viewDealersToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("viewDealersToolStripMenuItem.Image")));
             this.viewDealersToolStripMenuItem.Name = "viewDealersToolStripMenuItem";
             this.viewDealersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
             this.viewDealersToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.viewDealersToolStripMenuItem.Text = "View Dealers";
             this.viewDealersToolStripMenuItem.Click += new System.EventHandler(this.viewDealersToolStripMenuItem_Click);
+            // 
+            // viewBrandsToolStripMenuItem
+            // 
+            this.viewBrandsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("viewBrandsToolStripMenuItem.Image")));
+            this.viewBrandsToolStripMenuItem.Name = "viewBrandsToolStripMenuItem";
+            this.viewBrandsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.viewBrandsToolStripMenuItem.Text = "Brands";
+            this.viewBrandsToolStripMenuItem.Click += new System.EventHandler(this.viewBrandsToolStripMenuItem_Click);
             // 
             // transactionsToolStripMenuItem
             // 
@@ -289,6 +298,7 @@
             // 
             // viewTransactionsToolStripMenuItem
             // 
+            this.viewTransactionsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("viewTransactionsToolStripMenuItem.Image")));
             this.viewTransactionsToolStripMenuItem.Name = "viewTransactionsToolStripMenuItem";
             this.viewTransactionsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.T)));
             this.viewTransactionsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
@@ -297,6 +307,7 @@
             // 
             // downloadTransactionsReportToolStripMenuItem
             // 
+            this.downloadTransactionsReportToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("downloadTransactionsReportToolStripMenuItem.Image")));
             this.downloadTransactionsReportToolStripMenuItem.Name = "downloadTransactionsReportToolStripMenuItem";
             this.downloadTransactionsReportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.downloadTransactionsReportToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
@@ -306,24 +317,17 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contactUsToolStripMenuItem,
             this.aboutUsToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(48, 22);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // contactUsToolStripMenuItem
-            // 
-            this.contactUsToolStripMenuItem.Name = "contactUsToolStripMenuItem";
-            this.contactUsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.contactUsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.contactUsToolStripMenuItem.Text = "Contact Us";
-            // 
             // aboutUsToolStripMenuItem
             // 
+            this.aboutUsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("aboutUsToolStripMenuItem.Image")));
             this.aboutUsToolStripMenuItem.Name = "aboutUsToolStripMenuItem";
             this.aboutUsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.U)));
-            this.aboutUsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.aboutUsToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.aboutUsToolStripMenuItem.Text = "About";
             this.aboutUsToolStripMenuItem.Click += new System.EventHandler(this.aboutUsToolStripMenuItem_Click);
             // 
@@ -337,8 +341,9 @@
             this.grdViewInventorySummary.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.productName,
             this.productStock,
-            this.productTotalSales,
-            this.productCostPrice});
+            this.unitMeasurement,
+            this.salePrice,
+            this.productTotalSales});
             this.grdViewInventorySummary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdViewInventorySummary.Font = new System.Drawing.Font("Source Sans Pro", 10F);
             this.grdViewInventorySummary.GridStyles.Style = ComponentFactory.Krypton.Toolkit.DataGridViewStyle.Sheet;
@@ -352,18 +357,18 @@
             this.grdViewInventorySummary.ReadOnly = true;
             this.grdViewInventorySummary.RowTemplate.ReadOnly = true;
             this.grdViewInventorySummary.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdViewInventorySummary.Size = new System.Drawing.Size(713, 408);
+            this.grdViewInventorySummary.Size = new System.Drawing.Size(717, 408);
             this.grdViewInventorySummary.TabIndex = 1;
             // 
             // productName
             // 
             this.productName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.productName.DataPropertyName = "productName";
+            this.productName.DataPropertyName = "VariationName";
             this.productName.HeaderText = "Product Name";
             this.productName.Name = "productName";
             this.productName.ReadOnly = true;
             this.productName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.productName.Width = 335;
+            this.productName.Width = 251;
             // 
             // productStock
             // 
@@ -375,6 +380,22 @@
             this.productStock.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.productStock.Width = 112;
             // 
+            // unitMeasurement
+            // 
+            this.unitMeasurement.DataPropertyName = "unit_measurement";
+            this.unitMeasurement.HeaderText = "Unit Measurement";
+            this.unitMeasurement.Name = "unitMeasurement";
+            this.unitMeasurement.ReadOnly = true;
+            this.unitMeasurement.Width = 110;
+            // 
+            // salePrice
+            // 
+            this.salePrice.DataPropertyName = "retailPrice";
+            this.salePrice.HeaderText = "Sale Price";
+            this.salePrice.Name = "salePrice";
+            this.salePrice.ReadOnly = true;
+            this.salePrice.Width = 90;
+            // 
             // productTotalSales
             // 
             this.productTotalSales.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -385,17 +406,6 @@
             this.productTotalSales.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.productTotalSales.Width = 113;
             // 
-            // productCostPrice
-            // 
-            this.productCostPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.productCostPrice.DataPropertyName = "purchasedPrice";
-            this.productCostPrice.HeaderText = "Purchased Price";
-            this.productCostPrice.Name = "productCostPrice";
-            this.productCostPrice.ReadOnly = true;
-            this.productCostPrice.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.productCostPrice.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.productCostPrice.Width = 112;
-            // 
             // mainView_splitContainer
             // 
             this.mainView_splitContainer.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -404,7 +414,7 @@
             this.mainView_splitContainer.Font = new System.Drawing.Font("Source Sans Pro", 10F);
             this.mainView_splitContainer.ForeColor = System.Drawing.Color.White;
             this.mainView_splitContainer.IsSplitterFixed = true;
-            this.mainView_splitContainer.Location = new System.Drawing.Point(0, 34);
+            this.mainView_splitContainer.Location = new System.Drawing.Point(0, 0);
             this.mainView_splitContainer.Name = "mainView_splitContainer";
             // 
             // mainView_splitContainer.Panel1
@@ -421,8 +431,8 @@
             this.mainView_splitContainer.Panel2.ForeColor = System.Drawing.Color.White;
             this.mainView_splitContainer.Size = new System.Drawing.Size(878, 408);
             this.mainView_splitContainer.SplitterDistance = 160;
-            this.mainView_splitContainer.SplitterWidth = 5;
-            this.mainView_splitContainer.TabIndex = 2;
+            this.mainView_splitContainer.SplitterWidth = 1;
+            this.mainView_splitContainer.TabIndex = 4;
             // 
             // TablePanelSummaries
             // 
@@ -483,7 +493,7 @@
             // 
             // lblSalesMonthAmt
             // 
-            this.lblSalesMonthAmt.Location = new System.Drawing.Point(9, 59);
+            this.lblSalesMonthAmt.Location = new System.Drawing.Point(9, 64);
             this.lblSalesMonthAmt.Name = "lblSalesMonthAmt";
             this.lblSalesMonthAmt.Size = new System.Drawing.Size(128, 21);
             this.lblSalesMonthAmt.TabIndex = 1;
@@ -509,7 +519,7 @@
             // 
             // lblSalesHalfYearAmt
             // 
-            this.lblSalesHalfYearAmt.Location = new System.Drawing.Point(9, 61);
+            this.lblSalesHalfYearAmt.Location = new System.Drawing.Point(9, 64);
             this.lblSalesHalfYearAmt.Name = "lblSalesHalfYearAmt";
             this.lblSalesHalfYearAmt.Size = new System.Drawing.Size(124, 23);
             this.lblSalesHalfYearAmt.TabIndex = 1;
@@ -518,7 +528,7 @@
             // lblSalesHalfYearHeader
             // 
             this.lblSalesHalfYearHeader.Font = new System.Drawing.Font("Source Sans Pro", 14F);
-            this.lblSalesHalfYearHeader.Location = new System.Drawing.Point(8, 12);
+            this.lblSalesHalfYearHeader.Location = new System.Drawing.Point(8, 11);
             this.lblSalesHalfYearHeader.Name = "lblSalesHalfYearHeader";
             this.lblSalesHalfYearHeader.Size = new System.Drawing.Size(124, 49);
             this.lblSalesHalfYearHeader.TabIndex = 0;
@@ -536,7 +546,7 @@
             // lblEntireStockValueHeader
             // 
             this.lblEntireStockValueHeader.Font = new System.Drawing.Font("Source Sans Pro", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEntireStockValueHeader.Location = new System.Drawing.Point(8, 12);
+            this.lblEntireStockValueHeader.Location = new System.Drawing.Point(8, 11);
             this.lblEntireStockValueHeader.Name = "lblEntireStockValueHeader";
             this.lblEntireStockValueHeader.Size = new System.Drawing.Size(99, 50);
             this.lblEntireStockValueHeader.TabIndex = 1;
@@ -544,11 +554,21 @@
             // 
             // lblEntireStockValueAmt
             // 
-            this.lblEntireStockValueAmt.Location = new System.Drawing.Point(9, 62);
+            this.lblEntireStockValueAmt.Location = new System.Drawing.Point(9, 65);
             this.lblEntireStockValueAmt.Name = "lblEntireStockValueAmt";
             this.lblEntireStockValueAmt.Size = new System.Drawing.Size(128, 24);
             this.lblEntireStockValueAmt.TabIndex = 0;
             this.lblEntireStockValueAmt.Text = "N3,569,020.00";
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(86)))), ((int)(((byte)(103)))), ((int)(((byte)(118)))));
+            this.mainPanel.Controls.Add(this.mainView_splitContainer);
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.Location = new System.Drawing.Point(0, 34);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(878, 408);
+            this.mainPanel.TabIndex = 3;
             // 
             // Main
             // 
@@ -556,12 +576,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(878, 464);
-            this.Controls.Add(this.mainView_splitContainer);
+            this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.mainView_statusStrip);
             this.Controls.Add(this.mainView_menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainView_menuStrip;
-            this.MaximumSize = new System.Drawing.Size(950, 535);
+            this.MaximumSize = new System.Drawing.Size(1027, 579);
             this.MinimumSize = new System.Drawing.Size(894, 503);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -580,6 +600,7 @@
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            this.mainPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -607,11 +628,8 @@
         private System.Windows.Forms.ToolStripMenuItem transactionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewTransactionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem contactUsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutUsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem configurationsToolStripMenuItem;
         public System.Windows.Forms.ToolStripStatusLabel lblAuthText;
-        private System.Windows.Forms.ToolStripMenuItem viewInactiveProductsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadTransactionsReportToolStripMenuItem;
         internal ComponentFactory.Krypton.Toolkit.KryptonDataGridView grdViewInventorySummary;
         public System.Windows.Forms.SplitContainer mainView_splitContainer;
@@ -629,10 +647,13 @@
         public System.Windows.Forms.Label lblEntireStockValueHeader;
         public System.Windows.Forms.Label lblEntireStockValueAmt;
         private System.Windows.Forms.ToolStripMenuItem generateReportCSVToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewBrandsToolStripMenuItem;
+        private System.Windows.Forms.Panel mainPanel;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn productName;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn productStock;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn unitMeasurement;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn salePrice;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn productTotalSales;
-        private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn productCostPrice;
     }
 }
 

@@ -3,7 +3,7 @@
 namespace EntityLayer {
     public class DealerEntity {
         public DealerEntity() {
-            Selling_History = new HashSet<Selling_HistoryEntity>();
+            Transaction_History = new HashSet<Transaction_HistoryEntity>();
             Products = new HashSet<ProductEntity>();
         }
 
@@ -12,9 +12,10 @@ namespace EntityLayer {
         public string phone { get; set; }
         public string email { get; set; }
         public string address { get; set; }
+        public int brand_id { get; set; }
         public string products { get; set; }
 
-        public virtual ICollection<Selling_HistoryEntity> Selling_History { get; set; }
+        public virtual ICollection<Transaction_HistoryEntity> Transaction_History { get; set; }
         public virtual ICollection<ProductEntity> Products { get; set; }
     }
 }

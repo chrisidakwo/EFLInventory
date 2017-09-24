@@ -18,6 +18,19 @@ namespace DataLayer {
             return _dealers;
         }
 
+        /// <summary>
+        /// Retrieve all dealers for a given brand of BrandID
+        /// </summary>
+        /// <param name="BrandID"></param>
+        /// <returns></returns>
+        public static List<Dealer> GetDealersByBrand(int BrandID) {
+            return GetAllDealers().Where(d => d.Brand_id == BrandID).ToList();
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
         public static List<DealerEntity> GetAllDealerEntity() {
             string productList = "";
             List<DealerEntity> _dealers = new List<DealerEntity>();
@@ -47,6 +60,7 @@ namespace DataLayer {
                         email = item.email,
                         phone = item.phone,
                         address = item.address,
+                        brand_id = item.Brand_id,
                         products = productList
                     };
                     _dealers.Add(d);
@@ -98,6 +112,7 @@ namespace DataLayer {
                         temp.phone = klass.phone;
                         temp.email = klass.email;
                         temp.address = klass.address;
+                        temp.Brand_id = klass.Brand_id;
                         temp.last_updated = DateTime.Now;
 
                         db.Entry(temp).State = System.Data.EntityState.Modified;

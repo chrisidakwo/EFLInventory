@@ -81,7 +81,7 @@ namespace DataLayer {
                         temp.username = user.username;
                         temp.is_superuser = user.is_superuser;
                         temp.date_created = user.date_created;
-                        temp.last_updated = DateTime.Now.ToString();
+                        temp.last_updated = DateTime.Now;
 
                         if (user.password != "") {
                             temp.password = user.password;
@@ -90,8 +90,9 @@ namespace DataLayer {
                         db.Entry(temp).State = System.Data.EntityState.Modified;
                     }
                 } else {
-                    user.date_created = DateTime.Now.ToString();
-                    user.last_updated = DateTime.Now.ToString();
+                    user.date_created = DateTime.Now;
+                    user.last_updated = DateTime.Now;
+                    user.last_login = DateTime.Now;
                     db.Users.Add(user);
                 }
 

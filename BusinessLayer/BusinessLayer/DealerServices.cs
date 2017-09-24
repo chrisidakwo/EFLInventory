@@ -4,8 +4,21 @@ using System.Collections.Generic;
 
 namespace BusinessLayer {
     public class DealerServices {
+        /// <summary>
+        /// Retrieve all dealers in DB. Returns a list of dealers.
+        /// </summary>
+        /// <returns></returns>
         public static List<Dealer> GetAllDealers() {
             return DealerProvider.GetAllDealers();
+        }
+
+        /// <summary>
+        /// Retrieve all dealers for a given brand of BrandID
+        /// </summary>
+        /// <param name="BrandID"></param>
+        /// <returns></returns>
+        public static List<Dealer> GetDealersByBrand(int BrandID) {
+            return DealerProvider.GetDealersByBrand(BrandID);
         }
 
         public static List<DealerEntity> GetAllDealerEntity() {

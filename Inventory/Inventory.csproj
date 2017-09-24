@@ -54,24 +54,14 @@
     <ApplicationIcon>Favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.89.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.89.0\lib\net452\ClosedXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ComponentFactory.Krypton.Toolkit">
       <HintPath>..\..\Library\ComponentFactory.Krypton.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-    <Reference Include="MetroFramework, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroFramework.RunTime.1.2.0.3\lib\net40-Client\MetroFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MetroFramework.Design, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroFramework.Design.1.2.0.3\lib\net40\MetroFramework.Design.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MetroFramework.Fonts, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroFramework.Fonts.1.2.0.3\lib\net40\MetroFramework.Fonts.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -151,11 +141,23 @@
     <Compile Include="View\Charts\TestChart.Designer.cs">
       <DependentUpon>TestChart.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Dealers\AddUpdateBrand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Dealers\AddUpdateBrand.Designer.cs">
+      <DependentUpon>AddUpdateBrand.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Dealers\ViewDealers.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\Dealers\ViewDealers.Designer.cs">
       <DependentUpon>ViewDealers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\InventorySettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\InventorySettings.Designer.cs">
+      <DependentUpon>InventorySettings.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Login.cs">
       <SubType>Form</SubType>
@@ -163,11 +165,23 @@
     <Compile Include="View\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Products\AddUpdateProduct.cs">
+    <Compile Include="View\Products\AddUpdateMeasuringUnit.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Products\AddUpdateMeasuringUnit.Designer.cs">
+      <DependentUpon>AddUpdateMeasuringUnit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Products\AddUpdateProduct.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\Products\AddUpdateProduct.Designer.cs">
       <DependentUpon>AddUpdateProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Products\AddUpdateProductVariation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Products\AddUpdateProductVariation.Designer.cs">
+      <DependentUpon>AddUpdateProductVariation.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Products\ProductStockEntry.cs">
       <SubType>Form</SubType>
@@ -205,6 +219,12 @@
     <Compile Include="View\Transactions\GenerateReports.Designer.cs">
       <DependentUpon>GenerateReports.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Transactions\UpdateTransactionDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Transactions\UpdateTransactionDetails.Designer.cs">
+      <DependentUpon>UpdateTransactionDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Transactions\ViewTransactions.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -240,15 +260,27 @@
     <EmbeddedResource Include="View\Charts\TestChart.resx">
       <DependentUpon>TestChart.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Dealers\AddUpdateBrand.resx">
+      <DependentUpon>AddUpdateBrand.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Dealers\ViewDealers.resx">
       <DependentUpon>ViewDealers.cs</DependentUpon>
       <LastGenOutput>ViewDealers1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\InventorySettings.resx">
+      <DependentUpon>InventorySettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Products\AddUpdateMeasuringUnit.resx">
+      <DependentUpon>AddUpdateMeasuringUnit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Products\AddUpdateProduct.resx">
       <DependentUpon>AddUpdateProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Products\AddUpdateProductVariation.resx">
+      <DependentUpon>AddUpdateProductVariation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Products\ProductStockEntry.resx">
       <DependentUpon>ProductStockEntry.cs</DependentUpon>
@@ -268,12 +300,16 @@
     <EmbeddedResource Include="View\Transactions\GenerateReports.resx">
       <DependentUpon>GenerateReports.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Transactions\UpdateTransactionDetails.resx">
+      <DependentUpon>UpdateTransactionDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Transactions\ViewTransactions.resx">
       <DependentUpon>ViewTransactions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\UserAccountConfig.resx">
       <DependentUpon>UserAccountConfig.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="AppReadme\Excel-Reports-Help.chm" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -298,6 +334,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Favicon.ico" />
+    <Content Include="Files\9819993_orig.jpg" />
+    <Content Include="Files\Actions-user-group-new-icon.png" />
+    <Content Include="Files\AddProduct.png" />
     <Content Include="Files\BG12A.png" />
     <Content Include="Files\BG14A.png" />
     <Content Include="Files\BG15-1.png" />
@@ -308,14 +347,46 @@
     <Content Include="Files\BG25A.png" />
     <Content Include="Files\BG26A.png" />
     <Content Include="Files\BG8-1.png" />
+    <Content Include="Files\Bookmark-add-icon.png" />
+    <Content Include="Files\Calculator-icon.png" />
+    <Content Include="Files\category.png" />
+    <Content Include="Files\Custom-reports-icon.png" />
+    <Content Include="Files\dealer.jpg" />
+    <Content Include="Files\handshake-icon.png" />
+    <Content Include="Files\information-icon.png" />
+    <Content Include="Files\Inventory_Icon.png" />
     <Content Include="Files\LockScreen5A.png" />
+    <Content Include="Files\ModifyDealer.jpg" />
+    <Content Include="Files\ModifyProduct.png" />
     <Content Include="Files\NA.png" />
+    <Content Include="Files\purchase_icon.png" />
+    <Content Include="Files\report-2-xxl.png" />
     <Content Include="Files\scenery-1.png" />
     <Content Include="Files\scenery-2.png" />
     <Content Include="Files\scenery-3.png" />
     <None Include="Resources\Lock Screen 5A.png" />
     <None Include="ToastNotification.png" />
+    <None Include="Icon.png" />
+    <Content Include="Files\sellproducts.png" />
+    <Content Include="Files\Settings-5-icon.png" />
+    <Content Include="Files\Settings-L-icon.png" />
+    <Content Include="Files\Shopping-basket-accept-icon.png" />
+    <Content Include="Files\StockEntry.png" />
+    <Content Include="Files\SubCategory.png" />
+    <Content Include="Files\tag-alt-icon.png" />
+    <Content Include="Files\tag-icon.png" />
+    <Content Include="Files\Transaction.jpg" />
+    <Content Include="Files\user-info-icon.png" />
+    <Content Include="Files\Users-icon.png" />
+    <Content Include="Files\Windows-Close-Program-icon.png" />
     <Content Include="MetroFramework.txt" />
+    <None Include="Resources\Updated Logo.png" />
+    <None Include="Resources\AddProduct.png" />
+    <None Include="Resources\inventory-icon.png" />
+    <None Include="Resources\StockEntry.png" />
+    <None Include="Resources\Windows-Close-Program-icon.png" />
+    <None Include="Resources\Settings-5-icon.png" />
+    <None Include="Resources\user-info-icon.png" />
     <Content Include="ToastNotification\Sounds\error.wav" />
     <Content Include="ToastNotification\Sounds\startup.wav" />
     <Content Include="ToastNotification\Sounds\success.wav" />
@@ -393,15 +464,6 @@
       <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>9</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="VBIDE">
-      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>5</VersionMajor>
-      <VersionMinor>3</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>

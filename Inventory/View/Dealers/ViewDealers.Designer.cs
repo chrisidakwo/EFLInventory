@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewDealers));
             this.TablePanelViewDealers = new System.Windows.Forms.TableLayoutPanel();
             this.panelAddUpdateDealer = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -52,6 +53,10 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAddDealer = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnUpdateDealer = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.btnAddNewBrand = new System.Windows.Forms.Button();
+            this.ddlSelectBrand = new System.Windows.Forms.ComboBox();
+            this.lblSelectBrand = new System.Windows.Forms.Label();
             this.panelViewAllDealers = new System.Windows.Forms.Panel();
             this.grdViewAllDealers = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.dealerID = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
@@ -71,6 +76,7 @@
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.panelViewAllDealers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdViewAllDealers)).BeginInit();
             this.SuspendLayout();
@@ -89,7 +95,7 @@
             this.TablePanelViewDealers.RowCount = 2;
             this.TablePanelViewDealers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.TablePanelViewDealers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.TablePanelViewDealers.Size = new System.Drawing.Size(715, 407);
+            this.TablePanelViewDealers.Size = new System.Drawing.Size(878, 408);
             this.TablePanelViewDealers.TabIndex = 0;
             // 
             // panelAddUpdateDealer
@@ -98,7 +104,7 @@
             this.panelAddUpdateDealer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelAddUpdateDealer.Location = new System.Drawing.Point(6, 6);
             this.panelAddUpdateDealer.Name = "panelAddUpdateDealer";
-            this.panelAddUpdateDealer.Size = new System.Drawing.Size(703, 153);
+            this.panelAddUpdateDealer.Size = new System.Drawing.Size(866, 153);
             this.panelAddUpdateDealer.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -114,20 +120,20 @@
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 153F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(703, 153);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(866, 153);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // groupSortDealers
             // 
-            this.groupSortDealers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.groupSortDealers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupSortDealers.Controls.Add(this.tableLayoutPanel2);
             this.groupSortDealers.Font = new System.Drawing.Font("Source Sans Pro", 10F);
             this.groupSortDealers.ForeColor = System.Drawing.Color.White;
-            this.groupSortDealers.Location = new System.Drawing.Point(430, 3);
+            this.groupSortDealers.Location = new System.Drawing.Point(529, 3);
             this.groupSortDealers.Name = "groupSortDealers";
-            this.groupSortDealers.Size = new System.Drawing.Size(270, 147);
+            this.groupSortDealers.Size = new System.Drawing.Size(334, 147);
             this.groupSortDealers.TabIndex = 1;
             this.groupSortDealers.TabStop = false;
             this.groupSortDealers.Text = "Search/Sort Dealers";
@@ -145,7 +151,7 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 124F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(264, 124);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(328, 124);
             this.tableLayoutPanel2.TabIndex = 7;
             // 
             // panel1
@@ -156,21 +162,21 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(126, 118);
+            this.panel1.Size = new System.Drawing.Size(158, 118);
             this.panel1.TabIndex = 0;
             // 
             // txtSearchDealer
             // 
-            this.txtSearchDealer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtSearchDealer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSearchDealer.Location = new System.Drawing.Point(3, 50);
             this.txtSearchDealer.Name = "txtSearchDealer";
-            this.txtSearchDealer.Size = new System.Drawing.Size(111, 24);
+            this.txtSearchDealer.Size = new System.Drawing.Size(143, 24);
             this.txtSearchDealer.TabIndex = 3;
             // 
             // lblSortDealerByName
             // 
-            this.lblSortDealerByName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblSortDealerByName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSortDealerByName.AutoSize = true;
             this.lblSortDealerByName.Location = new System.Drawing.Point(3, 29);
@@ -181,13 +187,13 @@
             // 
             // btnSearchDealerByName
             // 
-            this.btnSearchDealerByName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.btnSearchDealerByName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearchDealerByName.Location = new System.Drawing.Point(3, 80);
             this.btnSearchDealerByName.Name = "btnSearchDealerByName";
-            this.btnSearchDealerByName.Size = new System.Drawing.Size(111, 32);
+            this.btnSearchDealerByName.Size = new System.Drawing.Size(142, 32);
             this.btnSearchDealerByName.TabIndex = 2;
-            this.btnSearchDealerByName.Text = "SEARCH";
+            this.btnSearchDealerByName.Values.Text = "SEARCH";
             this.btnSearchDealerByName.Click += new System.EventHandler(this.btnSearchDealerByName_Click);
             // 
             // panel2
@@ -197,36 +203,36 @@
             this.panel2.Controls.Add(this.lblSortDealers);
             this.panel2.Controls.Add(this.ddlSortOrder);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(135, 3);
+            this.panel2.Location = new System.Drawing.Point(167, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(126, 118);
+            this.panel2.Size = new System.Drawing.Size(158, 118);
             this.panel2.TabIndex = 1;
             // 
             // ddlSortBy
             // 
-            this.ddlSortBy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.ddlSortBy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ddlSortBy.FormattingEnabled = true;
             this.ddlSortBy.Location = new System.Drawing.Point(12, 19);
             this.ddlSortBy.Name = "ddlSortBy";
-            this.ddlSortBy.Size = new System.Drawing.Size(110, 24);
+            this.ddlSortBy.Size = new System.Drawing.Size(142, 24);
             this.ddlSortBy.TabIndex = 4;
             this.ddlSortBy.SelectedIndexChanged += new System.EventHandler(this.ddlSortBy_SelectedIndexChanged);
             // 
             // btnResetSort
             // 
-            this.btnResetSort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.btnResetSort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnResetSort.Location = new System.Drawing.Point(12, 80);
             this.btnResetSort.Name = "btnResetSort";
-            this.btnResetSort.Size = new System.Drawing.Size(110, 32);
+            this.btnResetSort.Size = new System.Drawing.Size(142, 32);
             this.btnResetSort.TabIndex = 6;
-            this.btnResetSort.Text = "RESET";
+            this.btnResetSort.Values.Text = "RESET";
             this.btnResetSort.Click += new System.EventHandler(this.btnResetSort_Click);
             // 
             // lblSortDealers
             // 
-            this.lblSortDealers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblSortDealers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSortDealers.AutoSize = true;
             this.lblSortDealers.Location = new System.Drawing.Point(9, -2);
@@ -237,19 +243,19 @@
             // 
             // ddlSortOrder
             // 
-            this.ddlSortOrder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.ddlSortOrder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ddlSortOrder.FormattingEnabled = true;
             this.ddlSortOrder.Location = new System.Drawing.Point(12, 49);
             this.ddlSortOrder.Name = "ddlSortOrder";
-            this.ddlSortOrder.Size = new System.Drawing.Size(110, 24);
+            this.ddlSortOrder.Size = new System.Drawing.Size(142, 24);
             this.ddlSortOrder.TabIndex = 5;
             this.ddlSortOrder.SelectedIndexChanged += new System.EventHandler(this.ddlSortOrder_SelectedIndexChanged);
             // 
             // groupAddUpdateDealer
             // 
-            this.groupAddUpdateDealer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.groupAddUpdateDealer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupAddUpdateDealer.Controls.Add(this.tableLayoutPanel4);
             this.groupAddUpdateDealer.Controls.Add(this.tableLayoutPanel1);
@@ -257,14 +263,14 @@
             this.groupAddUpdateDealer.ForeColor = System.Drawing.Color.White;
             this.groupAddUpdateDealer.Location = new System.Drawing.Point(3, 3);
             this.groupAddUpdateDealer.Name = "groupAddUpdateDealer";
-            this.groupAddUpdateDealer.Size = new System.Drawing.Size(421, 147);
+            this.groupAddUpdateDealer.Size = new System.Drawing.Size(520, 147);
             this.groupAddUpdateDealer.TabIndex = 0;
             this.groupAddUpdateDealer.TabStop = false;
             this.groupAddUpdateDealer.Text = "Add/Update Dealer";
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel4.ColumnCount = 2;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.65526F));
@@ -276,7 +282,7 @@
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 78F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(409, 78);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(508, 78);
             this.tableLayoutPanel4.TabIndex = 10;
             // 
             // panel3
@@ -288,28 +294,30 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(193, 72);
+            this.panel3.Size = new System.Drawing.Size(241, 72);
             this.panel3.TabIndex = 0;
             // 
             // txtDealerPhone
             // 
+            this.txtDealerPhone.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDealerPhone.Location = new System.Drawing.Point(60, 40);
             this.txtDealerPhone.Name = "txtDealerPhone";
-            this.txtDealerPhone.Size = new System.Drawing.Size(123, 24);
+            this.txtDealerPhone.Size = new System.Drawing.Size(171, 24);
             this.txtDealerPhone.TabIndex = 3;
             // 
             // txtDealerName
             // 
-            this.txtDealerName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtDealerName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDealerName.Location = new System.Drawing.Point(59, 6);
             this.txtDealerName.Name = "txtDealerName";
-            this.txtDealerName.Size = new System.Drawing.Size(124, 24);
+            this.txtDealerName.Size = new System.Drawing.Size(172, 24);
             this.txtDealerName.TabIndex = 1;
             // 
             // lblDealerName
             // 
-            this.lblDealerName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblDealerName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDealerName.AutoSize = true;
             this.lblDealerName.Font = new System.Drawing.Font("Source Sans Pro", 10F);
@@ -321,7 +329,7 @@
             // 
             // lblDealerPhone
             // 
-            this.lblDealerPhone.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblDealerPhone.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDealerPhone.AutoSize = true;
             this.lblDealerPhone.Location = new System.Drawing.Point(3, 43);
@@ -337,32 +345,32 @@
             this.panel4.Controls.Add(this.lblDealerEmail);
             this.panel4.Controls.Add(this.lblDealerAddress);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(202, 3);
+            this.panel4.Location = new System.Drawing.Point(250, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(204, 72);
+            this.panel4.Size = new System.Drawing.Size(255, 72);
             this.panel4.TabIndex = 1;
             // 
             // txtDealerAddress
             // 
-            this.txtDealerAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtDealerAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDealerAddress.Location = new System.Drawing.Point(66, 41);
             this.txtDealerAddress.Name = "txtDealerAddress";
-            this.txtDealerAddress.Size = new System.Drawing.Size(124, 24);
+            this.txtDealerAddress.Size = new System.Drawing.Size(175, 24);
             this.txtDealerAddress.TabIndex = 9;
             // 
             // txtDealerEmail
             // 
-            this.txtDealerEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtDealerEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDealerEmail.Location = new System.Drawing.Point(66, 9);
             this.txtDealerEmail.Name = "txtDealerEmail";
-            this.txtDealerEmail.Size = new System.Drawing.Size(124, 24);
+            this.txtDealerEmail.Size = new System.Drawing.Size(175, 24);
             this.txtDealerEmail.TabIndex = 6;
             // 
             // lblDealerEmail
             // 
-            this.lblDealerEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblDealerEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDealerEmail.AutoSize = true;
             this.lblDealerEmail.Location = new System.Drawing.Point(16, 12);
@@ -373,7 +381,7 @@
             // 
             // lblDealerAddress
             // 
-            this.lblDealerAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblDealerAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDealerAddress.AutoSize = true;
             this.lblDealerAddress.Location = new System.Drawing.Point(1, 46);
@@ -384,42 +392,83 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.09535F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.36186F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.78728F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.btnAddDealer, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnUpdateDealer, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(11, 103);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Controls.Add(this.btnAddDealer, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnUpdateDealer, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel5, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 100);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(400, 38);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(494, 38);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // btnAddDealer
             // 
             this.btnAddDealer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddDealer.Location = new System.Drawing.Point(3, 3);
+            this.btnAddDealer.Location = new System.Drawing.Point(250, 3);
             this.btnAddDealer.Name = "btnAddDealer";
-            this.btnAddDealer.Size = new System.Drawing.Size(110, 32);
+            this.btnAddDealer.Size = new System.Drawing.Size(117, 32);
             this.btnAddDealer.TabIndex = 0;
-            this.btnAddDealer.Text = "SAVE";
+            this.btnAddDealer.Values.Text = "SAVE";
             this.btnAddDealer.Click += new System.EventHandler(this.btnAddDealer_Click);
             // 
             // btnUpdateDealer
             // 
             this.btnUpdateDealer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUpdateDealer.Location = new System.Drawing.Point(119, 3);
+            this.btnUpdateDealer.Location = new System.Drawing.Point(373, 3);
             this.btnUpdateDealer.Name = "btnUpdateDealer";
-            this.btnUpdateDealer.Size = new System.Drawing.Size(107, 32);
+            this.btnUpdateDealer.Size = new System.Drawing.Size(118, 32);
             this.btnUpdateDealer.TabIndex = 1;
-            this.btnUpdateDealer.Text = "UPDATE";
+            this.btnUpdateDealer.Values.Text = "UPDATE";
             this.btnUpdateDealer.Click += new System.EventHandler(this.btnUpdateDealer_Click);
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.btnAddNewBrand);
+            this.panel5.Controls.Add(this.ddlSelectBrand);
+            this.panel5.Controls.Add(this.lblSelectBrand);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(3, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(241, 32);
+            this.panel5.TabIndex = 2;
+            // 
+            // btnAddNewBrand
+            // 
+            this.btnAddNewBrand.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddNewBrand.BackgroundImage")));
+            this.btnAddNewBrand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAddNewBrand.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddNewBrand.FlatAppearance.BorderSize = 0;
+            this.btnAddNewBrand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddNewBrand.Location = new System.Drawing.Point(214, 7);
+            this.btnAddNewBrand.Name = "btnAddNewBrand";
+            this.btnAddNewBrand.Size = new System.Drawing.Size(17, 17);
+            this.btnAddNewBrand.TabIndex = 2;
+            this.btnAddNewBrand.UseVisualStyleBackColor = true;
+            this.btnAddNewBrand.Click += new System.EventHandler(this.btnAddNewBrand_Click);
+            // 
+            // ddlSelectBrand
+            // 
+            this.ddlSelectBrand.FormattingEnabled = true;
+            this.ddlSelectBrand.Location = new System.Drawing.Point(59, 3);
+            this.ddlSelectBrand.Name = "ddlSelectBrand";
+            this.ddlSelectBrand.Size = new System.Drawing.Size(150, 24);
+            this.ddlSelectBrand.TabIndex = 1;
+            // 
+            // lblSelectBrand
+            // 
+            this.lblSelectBrand.AutoSize = true;
+            this.lblSelectBrand.Location = new System.Drawing.Point(6, 7);
+            this.lblSelectBrand.Name = "lblSelectBrand";
+            this.lblSelectBrand.Size = new System.Drawing.Size(47, 18);
+            this.lblSelectBrand.TabIndex = 0;
+            this.lblSelectBrand.Text = "Brand:";
             // 
             // panelViewAllDealers
             // 
@@ -429,7 +478,7 @@
             this.panelViewAllDealers.Font = new System.Drawing.Font("Source Sans Pro", 10F);
             this.panelViewAllDealers.Location = new System.Drawing.Point(6, 168);
             this.panelViewAllDealers.Name = "panelViewAllDealers";
-            this.panelViewAllDealers.Size = new System.Drawing.Size(703, 233);
+            this.panelViewAllDealers.Size = new System.Drawing.Size(866, 234);
             this.panelViewAllDealers.TabIndex = 1;
             // 
             // grdViewAllDealers
@@ -450,9 +499,11 @@
             this.grdViewAllDealers.GridStyles.StyleDataCells = ComponentFactory.Krypton.Toolkit.GridStyle.Sheet;
             this.grdViewAllDealers.GridStyles.StyleRow = ComponentFactory.Krypton.Toolkit.GridStyle.Sheet;
             this.grdViewAllDealers.Location = new System.Drawing.Point(0, 0);
+            this.grdViewAllDealers.MultiSelect = false;
             this.grdViewAllDealers.Name = "grdViewAllDealers";
             this.grdViewAllDealers.ReadOnly = true;
-            this.grdViewAllDealers.Size = new System.Drawing.Size(699, 229);
+            this.grdViewAllDealers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdViewAllDealers.Size = new System.Drawing.Size(862, 230);
             this.grdViewAllDealers.TabIndex = 0;
             this.grdViewAllDealers.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdViewAllDealers_RowHeaderMouseClick);
             // 
@@ -471,7 +522,7 @@
             this.dealersName.HeaderText = "Dealer Name";
             this.dealersName.Name = "dealersName";
             this.dealersName.ReadOnly = true;
-            this.dealersName.Width = 179;
+            this.dealersName.Width = 211;
             // 
             // dealerPhone
             // 
@@ -479,7 +530,7 @@
             this.dealerPhone.HeaderText = "Phone Number";
             this.dealerPhone.Name = "dealerPhone";
             this.dealerPhone.ReadOnly = true;
-            this.dealerPhone.Width = 100;
+            this.dealerPhone.Width = 120;
             // 
             // dealerEmail
             // 
@@ -487,7 +538,7 @@
             this.dealerEmail.HeaderText = "Email Address";
             this.dealerEmail.Name = "dealerEmail";
             this.dealerEmail.ReadOnly = true;
-            this.dealerEmail.Width = 100;
+            this.dealerEmail.Width = 180;
             // 
             // dealerProducts
             // 
@@ -496,7 +547,7 @@
             this.dealerProducts.HeaderText = "Products";
             this.dealerProducts.Name = "dealerProducts";
             this.dealerProducts.ReadOnly = true;
-            this.dealerProducts.Width = 179;
+            this.dealerProducts.Width = 210;
             // 
             // ViewDealers
             // 
@@ -508,7 +559,7 @@
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ViewDealers";
-            this.Size = new System.Drawing.Size(715, 407);
+            this.Size = new System.Drawing.Size(878, 408);
             this.TablePanelViewDealers.ResumeLayout(false);
             this.panelAddUpdateDealer.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -525,6 +576,8 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.panelViewAllDealers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdViewAllDealers)).EndInit();
             this.ResumeLayout(false);
@@ -563,11 +616,15 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.TextBox txtDealerAddress;
+        private System.Windows.Forms.TextBox txtDealerPhone;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.ComboBox ddlSelectBrand;
+        private System.Windows.Forms.Label lblSelectBrand;
+        private System.Windows.Forms.Button btnAddNewBrand;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn dealerID;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn dealersName;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn dealerPhone;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn dealerEmail;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn dealerProducts;
-        private System.Windows.Forms.TextBox txtDealerPhone;
     }
 }

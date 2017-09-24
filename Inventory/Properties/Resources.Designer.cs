@@ -61,6 +61,16 @@ namespace Inventory.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AddProduct {
+            get {
+                object obj = ResourceManager.GetObject("AddProduct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ekojoka Christolight Idakwo.
         /// </summary>
         public static string Author {
@@ -172,6 +182,16 @@ namespace Inventory.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Icon {
+            get {
+                object obj = ResourceManager.GetObject("Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Lock_Screen_5A {
             get {
                 object obj = ResourceManager.GetObject("Lock_Screen_5A", resourceCulture);
@@ -232,6 +252,26 @@ namespace Inventory.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Settings_5_icon {
+            get {
+                object obj = ResourceManager.GetObject("Settings-5-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap StockEntry {
+            get {
+                object obj = ResourceManager.GetObject("StockEntry", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap ToastNotification {
             get {
                 object obj = ResourceManager.GetObject("ToastNotification", resourceCulture);
@@ -245,6 +285,36 @@ namespace Inventory.Properties {
         public static System.Drawing.Bitmap ToastNotification1 {
             get {
                 object obj = ResourceManager.GetObject("ToastNotification1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Updated_Logo {
+            get {
+                object obj = ResourceManager.GetObject("Updated Logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap user_info_icon {
+            get {
+                object obj = ResourceManager.GetObject("user-info-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Windows_Close_Program_icon {
+            get {
+                object obj = ResourceManager.GetObject("Windows-Close-Program-icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

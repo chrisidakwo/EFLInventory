@@ -1,5 +1,5 @@
 ﻿namespace EntityLayer {
-    public class Selling_HistoryEntity {
+    public class Transaction_HistoryEntity {
         public int id { get; set; }
         public string dealer_name { get; set; }
         public string product_id { get; set; }

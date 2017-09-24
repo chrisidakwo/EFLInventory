@@ -9,11 +9,14 @@ namespace Inventory.ToastNotification {
             [Description("Error Notification")]
             Error = 0,
 
+            [Description("Prompt Notification")]
+            Prompt = 1,
+
             [Description("Success Notification")]
-            Success = 1,
+            Success = 2,
 
             [Description("Application StartUp")]
-            StartUp = 2
+            StartUp = 3
         }
 
         public static void PlayNotificationSound(Sounds soundType) {
@@ -23,6 +26,9 @@ namespace Inventory.ToastNotification {
             switch (soundType) {
                 case Sounds.Error:
                     soundFile = Path.Combine(soundsFolder, "error.wav");
+                    break;
+                case Sounds.Prompt:
+                    soundFile = Path.Combine(soundsFolder, "prompt.wav");
                     break;
                 case Sounds.Success:
                     soundFile = Path.Combine(soundsFolder, "success.wav");

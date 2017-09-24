@@ -1,10 +1,8 @@
 ﻿using BusinessLayer;
 using ComponentFactory.Krypton.Toolkit;
 using DataLayer;
+using Inventory.View.Helpers;
 using System;
-using ToastNotification;
-using static Inventory.ToastNotification.NotificationSound;
-using static ToastNotification.FormAnimator;
 
 namespace Inventory.View.Categories {
     public partial class AddUpdateCategory : KryptonForm {
@@ -21,9 +19,7 @@ namespace Inventory.View.Categories {
             // Ensure category name is not empty
             var category_name = txtCategoryName.Text.Trim();
             if (category_name.Equals(String.Empty)) {
-                Notification n = new Notification("Invalid Input", "Category name cannot be empty!", -1, AnimationMethod.Slide, AnimationDirection.Up);
-                PlayNotificationSound(Sounds.Error);
-                n.Show();
+                ControlHelpers.ErrorNotification("Invalid Input", "Category name cannot be empty!");
                 return;
             }
 
@@ -35,9 +31,7 @@ namespace Inventory.View.Categories {
                     name = category_name,
                 };
             } else {
-                Notification n = new Notification("Category Exists", category_name.ToLower().Replace(category_name.Substring(0, 1), category_name.Substring(0, 1).ToUpper()) + " already exists!", -1, AnimationMethod.Slide, AnimationDirection.Up);
-                PlayNotificationSound(Sounds.Error);
-                n.Show();
+                ControlHelpers.ErrorNotification("Category Exists", category_name.ToLower().Replace(category_name.Substring(0, 1), category_name.Substring(0, 1).ToUpper()) + " already exists!");
                 //KryptonMessageBox.Show(category_name + " already exists!", "Category Exists", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -48,9 +42,7 @@ namespace Inventory.View.Categories {
             try {
                 int id = CategoryServices.AddUpdateCategory(_category);
                 if (id > 0) {
-                    Notification n = new Notification("New Category Created", category_name + " category created successfully!", -1, AnimationMethod.Slide, AnimationDirection.Up);
-                    PlayNotificationSound(Sounds.Success);
-                    n.Show();
+                    ControlHelpers.SuccessNotification("New Category Created", category_name + " category created successfully!");
 
                     string description = "Added a new category: " + category_name;
                     //int userid = LoginCredentials.userid;
@@ -60,14 +52,10 @@ namespace Inventory.View.Categories {
                     //}
                     this.Close();
                 } else {
-                    Notification n = new Notification("Save Error", "Category was not saved in the database!", -1, AnimationMethod.Slide, AnimationDirection.Up);
-                    PlayNotificationSound(Sounds.Error);
-                    n.Show();
+                    ControlHelpers.ErrorNotification("Save Error", "Category was not saved in the database!");
                 }
             } catch (Exception) {
-                Notification n = new Notification("An error occurred while saving category.", "UnHandled Error!", -1, AnimationMethod.Slide, AnimationDirection.Up);
-                PlayNotificationSound(Sounds.Error);
-                n.Show();
+                ControlHelpers.ErrorNotification("An error occurred while saving category.", "UnHandled Error!");
             }
         }
     }

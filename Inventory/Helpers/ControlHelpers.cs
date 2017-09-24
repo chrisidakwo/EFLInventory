@@ -5,11 +5,11 @@ using static ToastNotification.FormAnimator;
 
 namespace Inventory.View.Helpers {
     public class ControlHelpers {
-        public static void DisplayUserControl(SplitContainer sc, Control.ControlCollection cc) {
-            sc.Panel2.Controls.Clear();
+        public static void DisplayUserControl(Panel panel, Control.ControlCollection cc) {
+            panel.Controls.Clear();
             var controls = cc;
             foreach (Control control in controls) {
-                sc.Panel2.Controls.Add(control);
+                panel.Controls.Add(control);
             }
         }
 
@@ -19,13 +19,19 @@ namespace Inventory.View.Helpers {
             n.Show();
         }
 
-        public static void SuccessNotification(string title, string body, int duration = 7) {
+        public static void SuccessNotification(string title, string body, int duration = 10) {
             Notification n = new Notification(title, body, duration, AnimationMethod.Slide, AnimationDirection.Up);
             PlayNotificationSound(Sounds.Success);
             n.Show();
         }
 
-        public static void ErrorNotification(string title, string body, int duration = 7) {
+        public static void PromptNotification(string title, string body, int duration = 10) {
+            Notification n = new Notification(title, body, duration, AnimationMethod.Slide, AnimationDirection.Up);
+            PlayNotificationSound(Sounds.Prompt);
+            n.Show();
+        }
+
+        public static void ErrorNotification(string title, string body, int duration = 10) {
             Notification n = new Notification(title, body, duration, AnimationMethod.Slide, AnimationDirection.Up);
             PlayNotificationSound(Sounds.Error);
             n.Show();

@@ -25,7 +25,7 @@ namespace Inventory {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("CHRIS-IDAKWO-HP\\SQLEXPRESS")]
+        [global::System.Configuration.DefaultSettingValueAttribute("(localdb)\\MSSQLLocalDB")]
         public string ServerName {
             get {
                 return ((string)(this["ServerName"]));

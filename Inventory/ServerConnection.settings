@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ServerName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CHRIS-IDAKWO-HP\SQLEXPRESS</Value>
+      <Value Profile="(Default)">(localdb)\MSSQLLocalDB</Value>
     </Setting>
     <Setting Name="UserName" Type="System.String" Scope="User">
       <Value Profile="(Default)">sa</Value>

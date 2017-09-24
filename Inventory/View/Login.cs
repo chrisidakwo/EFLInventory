@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using ComponentFactory.Krypton.Toolkit;
+using DataLayer;
 using Inventory.Helpers;
 using Inventory.Model;
 using Inventory.Utils;
@@ -16,12 +17,7 @@ namespace Inventory.View {
         private string EmptyStockProductList = "";
         public Login() {
             InitializeComponent();
-            //int users = 0;
-            //try {
-            //    users = UserServices.GetAllUsers().Where(u => u.is_superuser = true).Count();
-            //} catch (Exception ex) {
-            //    ErrorLogger.LogException(ex, "Not Authenticated", "Loading login page. Trying to retrieve a list of users from db.");
-            //}
+            DefaultSuperAdminExists();
         }
 
         /// <summary>
@@ -113,6 +109,28 @@ namespace Inventory.View {
             // Open a modal to set superuser account
             using (UserAccountConfig u = new UserAccountConfig()) {
                 u.ShowDialog();
+            }
+        }
+
+        public void DefaultSuperAdminExists() {
+            string name = "InventoryAdmin";
+            string password = "0QXsIr/cGL2JHaDSNn6mJUIrKgs0PMj8xIWQ1n8TQIEzrNYnb3s+9U+cvFTzvcuToIQTBD7FiB9hb5u9sXWciWVAp3vCJRg85sx7gw==";
+            var user = UserServices.GetUserByUsername(name);
+            if (user == null) {
+                User u = new User() {
+                    username = name,
+                    password = password,
+                    full_name = "Inventory Admin",
+                    is_staff = true,
+                    is_superuser = true,
+                    date_created = DateTime.Now,
+                    last_updated = DateTime.Now,
+                    last_login = DateTime.Now,
+                };
+
+                UserServices.AddUpdateUser(u);
+            } else {
+                return;
             }
         }
     }

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/23/2017 12:04:39
+-- Date Created: 09/24/2017 15:02:26
 -- Generated from EDMX file: C:\Users\chris\Source\Workspaces\EFLInventoryManagement\EFLInventoryManagement\DataLayer\DataLayer\EFLInventory.edmx
 -- --------------------------------------------------
 
@@ -43,6 +43,9 @@ IF OBJECT_ID(N'[dbo].[FK_ProductVariationTransaction_History]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_ProductVariation_DamagedProduct]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[DamagedProducts] DROP CONSTRAINT [FK_ProductVariation_DamagedProduct];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BrandDealer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Dealers] DROP CONSTRAINT [FK_BrandDealer];
 GO
 
 -- --------------------------------------------------

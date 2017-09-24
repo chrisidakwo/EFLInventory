@@ -37,6 +37,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -52,6 +54,15 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML, Version=0.89.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
@@ -309,8 +320,8 @@
     <EmbeddedResource Include="View\UserAccountConfig.resx">
       <DependentUpon>UserAccountConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="AppReadme\Excel-Reports-Help.chm" />
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -379,7 +390,6 @@
     <Content Include="Files\user-info-icon.png" />
     <Content Include="Files\Users-icon.png" />
     <Content Include="Files\Windows-Close-Program-icon.png" />
-    <Content Include="MetroFramework.txt" />
     <None Include="Resources\Updated Logo.png" />
     <None Include="Resources\AddProduct.png" />
     <None Include="Resources\inventory-icon.png" />

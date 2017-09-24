@@ -2,7 +2,6 @@
 using EntityLayer;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace BusinessLayer {
     public class ProductServices {
@@ -20,10 +19,6 @@ namespace BusinessLayer {
 
         public static List<Product> GetAllActiveProducts() {
             return ProductProvider.GetAllActiveProducts();
-        }
-
-        public static AutoCompleteStringCollection GetAllActiveProductsAsCSV() {
-            return ProductProvider.GetAllActiveProductsAsCSV();
         }
 
         public static List<Product> GetAllProducts() {

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace DataLayer {
     public class ProductProvider {
@@ -78,17 +77,6 @@ namespace DataLayer {
                 _products = db.Products.Where(p => p.id > 0 && p.status).OrderBy(p => p.name).ToList();
             }
             return _products;
-        }
-
-        public static AutoCompleteStringCollection GetAllActiveProductsAsCSV() {
-            AutoCompleteStringCollection productList = new AutoCompleteStringCollection();
-            var _activeProducts = GetAllActiveProducts();
-
-            foreach (Product item in _activeProducts) {
-                productList.Add(item.name + "\n");
-            }
-
-            return productList;
         }
 
         /// <summary>
